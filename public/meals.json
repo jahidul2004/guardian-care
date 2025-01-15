@@ -6,7 +6,10 @@
         "rating": 4.5,
         "price": 8.99,
         "description": "Fluffy pancakes served with maple syrup and butter.",
-        "category": "Breakfast"
+        "category": "Breakfast",
+        "distributorName": "Delight Foods",
+        "ingredients": ["Flour", "Eggs", "Milk", "Maple Syrup", "Butter"],
+        "postTime": "2025-01-10T12:00:00Z"
     },
     {
         "id": 2,
@@ -15,7 +18,10 @@
         "rating": 4.3,
         "price": 6.99,
         "description": "A three-egg omelette with cheese and vegetables.",
-        "category": "Breakfast"
+        "category": "Breakfast",
+        "distributorName": "Omelette Express",
+        "ingredients": ["Eggs", "Cheese", "Bell Peppers", "Onions", "Spinach"],
+        "postTime": "2025-01-12T09:00:00Z"
     },
     {
         "id": 3,
@@ -24,7 +30,10 @@
         "rating": 4.7,
         "price": 7.49,
         "description": "Golden-brown toast with powdered sugar and fresh fruit.",
-        "category": "Breakfast"
+        "category": "Breakfast",
+        "distributorName": "Toast & More",
+        "ingredients": ["Bread", "Eggs", "Milk", "Sugar", "Berries"],
+        "postTime": "2025-01-08T08:00:00Z"
     },
     {
         "id": 4,
@@ -33,7 +42,10 @@
         "rating": 4.8,
         "price": 5.99,
         "description": "Sourdough bread topped with fresh avocado and spices.",
-        "category": "Breakfast"
+        "category": "Breakfast",
+        "distributorName": "Avocado Delight",
+        "ingredients": ["Sourdough Bread", "Avocado", "Chili Flakes", "Lemon"],
+        "postTime": "2025-01-14T10:30:00Z"
     },
     {
         "id": 5,
@@ -42,7 +54,15 @@
         "rating": 4.6,
         "price": 9.99,
         "description": "Poached eggs with hollandaise sauce on English muffins.",
-        "category": "Breakfast"
+        "category": "Breakfast",
+        "distributorName": "Classic Breakfasts",
+        "ingredients": [
+            "Eggs",
+            "English Muffins",
+            "Hollandaise Sauce",
+            "Chives"
+        ],
+        "postTime": "2025-01-11T11:15:00Z"
     },
     {
         "id": 6,
@@ -51,7 +71,16 @@
         "rating": 4.2,
         "price": 12.99,
         "description": "Fresh greens with grilled chicken and a light vinaigrette.",
-        "category": "Lunch"
+        "category": "Lunch",
+        "distributorName": "Green & Grill",
+        "ingredients": [
+            "Chicken Breast",
+            "Lettuce",
+            "Tomatoes",
+            "Cucumber",
+            "Vinaigrette"
+        ],
+        "postTime": "2025-01-13T12:00:00Z"
     },
     {
         "id": 7,
@@ -60,7 +89,16 @@
         "rating": 4.4,
         "price": 11.99,
         "description": "Juicy beef patty with cheese, lettuce, and tomato.",
-        "category": "Lunch"
+        "category": "Lunch",
+        "distributorName": "Burger Heaven",
+        "ingredients": [
+            "Beef Patty",
+            "Cheddar Cheese",
+            "Lettuce",
+            "Tomato",
+            "Buns"
+        ],
+        "postTime": "2025-01-12T13:00:00Z"
     },
     {
         "id": 8,
@@ -69,7 +107,16 @@
         "rating": 4.1,
         "price": 9.49,
         "description": "Whole wheat wrap filled with fresh vegetables and hummus.",
-        "category": "Lunch"
+        "category": "Lunch",
+        "distributorName": "Healthy Wraps",
+        "ingredients": [
+            "Whole Wheat Wrap",
+            "Hummus",
+            "Carrots",
+            "Cucumber",
+            "Lettuce"
+        ],
+        "postTime": "2025-01-09T14:30:00Z"
     },
     {
         "id": 9,
@@ -78,7 +125,10 @@
         "rating": 4.6,
         "price": 13.99,
         "description": "Creamy Alfredo pasta with grilled chicken and parmesan.",
-        "category": "Lunch"
+        "category": "Lunch",
+        "distributorName": "Pasta Delight",
+        "ingredients": ["Pasta", "Chicken", "Alfredo Sauce", "Parmesan Cheese"],
+        "postTime": "2025-01-07T15:00:00Z"
     },
     {
         "id": 10,
@@ -87,7 +137,15 @@
         "rating": 4.5,
         "price": 8.49,
         "description": "Crisp romaine lettuce with Caesar dressing and croutons.",
-        "category": "Lunch"
+        "category": "Lunch",
+        "distributorName": "Salad Corner",
+        "ingredients": [
+            "Romaine Lettuce",
+            "Caesar Dressing",
+            "Croutons",
+            "Parmesan"
+        ],
+        "postTime": "2025-01-06T16:45:00Z"
     },
     {
         "id": 11,
@@ -96,7 +154,10 @@
         "rating": 4.8,
         "price": 18.99,
         "description": "Perfectly grilled salmon served with lemon butter sauce.",
-        "category": "Dinner"
+        "category": "Dinner",
+        "distributorName": "Seafood Delights",
+        "ingredients": ["Salmon", "Lemon", "Butter", "Parsley"],
+        "postTime": "2025-01-05T17:30:00Z"
     },
     {
         "id": 12,
@@ -105,7 +166,10 @@
         "rating": 4.7,
         "price": 22.99,
         "description": "Tender beef steak served with mashed potatoes and veggies.",
-        "category": "Dinner"
+        "category": "Dinner",
+        "distributorName": "Steakhouse Grill",
+        "ingredients": ["Beef", "Mashed Potatoes", "Mixed Vegetables"],
+        "postTime": "2025-01-04T18:00:00Z"
     },
     {
         "id": 13,
@@ -114,7 +178,10 @@
         "rating": 4.4,
         "price": 14.99,
         "description": "A mix of fresh vegetables stir-fried in a savory sauce.",
-        "category": "Dinner"
+        "category": "Dinner",
+        "distributorName": "Veggie Delight",
+        "ingredients": ["Mixed Vegetables", "Soy Sauce", "Garlic", "Ginger"],
+        "postTime": "2025-01-03T19:15:00Z"
     },
     {
         "id": 14,
@@ -123,7 +190,10 @@
         "rating": 4.6,
         "price": 15.49,
         "description": "Spicy chicken curry served with steamed rice.",
-        "category": "Dinner"
+        "category": "Dinner",
+        "distributorName": "Curry House",
+        "ingredients": ["Chicken", "Curry Sauce", "Rice", "Spices"],
+        "postTime": "2025-01-02T20:00:00Z"
     },
     {
         "id": 15,
@@ -132,51 +202,9 @@
         "rating": 4.9,
         "price": 20.99,
         "description": "Traditional Spanish rice dish with seafood and spices.",
-        "category": "Dinner"
-    },
-    {
-        "id": 16,
-        "title": "Bagel and Cream Cheese",
-        "image": "https://i.ibb.co.com/BCL8yTm/school2.jpg",
-        "rating": 4.3,
-        "price": 4.99,
-        "description": "Freshly baked bagel served with creamy cheese spread.",
-        "category": "Breakfast"
-    },
-    {
-        "id": 17,
-        "title": "Chicken Caesar Wrap",
-        "image": "https://i.ibb.co.com/BCL8yTm/school2.jpg",
-        "rating": 4.5,
-        "price": 10.99,
-        "description": "Grilled chicken with Caesar dressing in a tortilla wrap.",
-        "category": "Lunch"
-    },
-    {
-        "id": 18,
-        "title": "Margherita Pizza",
-        "image": "https://i.ibb.co.com/BCL8yTm/school2.jpg",
-        "rating": 4.7,
-        "price": 12.99,
-        "description": "Classic Margherita pizza with fresh basil and mozzarella.",
-        "category": "Dinner"
-    },
-    {
-        "id": 19,
-        "title": "Tomato Basil Soup",
-        "image": "https://i.ibb.co.com/BCL8yTm/school2.jpg",
-        "rating": 4.2,
-        "price": 6.49,
-        "description": "Creamy tomato soup with a hint of fresh basil.",
-        "category": "Lunch"
-    },
-    {
-        "id": 20,
-        "title": "Shrimp Scampi",
-        "image": "https://i.ibb.co.com/BCL8yTm/school2.jpg",
-        "rating": 4.8,
-        "price": 19.99,
-        "description": "Garlic butter shrimp served with pasta and parsley.",
-        "category": "Dinner"
+        "category": "Dinner",
+        "distributorName": "Spanish Kitchen",
+        "ingredients": ["Seafood", "Rice", "Saffron", "Spices"],
+        "postTime": "2025-01-01T21:00:00Z"
     }
 ]
