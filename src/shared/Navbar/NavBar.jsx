@@ -1,6 +1,6 @@
 import { IoMdLogIn } from "react-icons/io";
 import logo from "../../assets/logo/logo.png";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { IoNotificationsCircleOutline } from "react-icons/io5";
 import { RiHome9Line, RiMenuFill } from "react-icons/ri";
 import { GiMeal } from "react-icons/gi";
@@ -62,10 +62,13 @@ const NavBar = () => {
             </div>
             <div className="hidden md:flex">
                 <IoNotificationsCircleOutline className="text-4xl mr-5 text-[#5fbf54] cursor-pointer" />
-                <a className="btn bg-[#5fbf54] text-white hover:text-[#5fbf54]">
+                <Link
+                    to={"/login"}
+                    className="btn bg-[#5fbf54] text-white hover:text-[#5fbf54]"
+                >
                     <IoMdLogIn />
                     Join With Us
-                </a>
+                </Link>
             </div>
         </div>
     );
