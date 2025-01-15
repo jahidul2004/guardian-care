@@ -13,7 +13,7 @@ const router = createBrowserRouter([
                 element: <Home></Home>,
             },
             {
-                path: "/meal/:id",
+                path: "/meals/:id",
                 element: <MealDetails></MealDetails>,
                 loader: async ({ params }) => {
                     const data = await fetch(
