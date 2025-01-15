@@ -17,7 +17,7 @@ const router = createBrowserRouter([
                 element: <MealDetails></MealDetails>,
                 loader: async ({ params }) => {
                     const data = await fetch(
-                        `https://api.sampleapis.com/recipes/meal/${params.id}`
+                        `http://localhost:3000/meals/${params.id}`
                     ).then((res) => res.json());
                     return data;
                 },
