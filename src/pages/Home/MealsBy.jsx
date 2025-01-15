@@ -1,9 +1,18 @@
 import { useState } from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
+import useMenu from "../../hooks/useMenu";
 
 const MealsBy = () => {
     const [tabIndex, setTabIndex] = useState(0);
+
+    const [menu] = useMenu();
+
+    const breakfast = menu.filter((item) => item.category === "Breakfast");
+    const lunch = menu.filter((item) => item.category === "Lunch");
+    const dinner = menu.filter((item) => item.category === "Dinner");
+    const allMeals = menu;
+
     return (
         <div className="flex flex-col items-center gap-4 py-4">
             <div className="w-max nx-auto">
