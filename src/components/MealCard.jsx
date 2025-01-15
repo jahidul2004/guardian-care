@@ -16,7 +16,7 @@ const MealCard = ({ data }) => {
                 <p className="font-semibold">Price:{data.price}$</p>
                 <div className="card-actions justify-end">
                     <Link
-                        to={`meals/${data.id}`}
+                        to={`meals/${data._id}`}
                         className="btn bg-[#5fbf54] text-white border-none"
                     >
                         View Details
