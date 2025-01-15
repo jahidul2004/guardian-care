@@ -10,9 +10,7 @@ const MainLayout = () => {
             {/* Navbar end */}
 
             {/* Outlet */}
-            <div className="container mx-auto p-4">
-                <Outlet></Outlet>
-            </div>
+            <Outlet></Outlet>
             {/* Outlet end */}
 
             {/* Footer */}
