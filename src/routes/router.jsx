@@ -3,6 +3,7 @@ import MainLayout from "../layouts/MainLayout";
 import Home from "../pages/Home/Home";
 import MealDetails from "../pages/details/MealDetails";
 import Meals from "../pages/meals/Meals";
+import Login from "../pages/Login/Login";
 
 const router = createBrowserRouter([
     {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
                     ).then((res) => res.json());
                     return data;
                 },
+            },
+            {
+                path: "/login",
+                element: <Login></Login>,
             },
         ],
     },
