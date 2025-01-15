@@ -26,7 +26,7 @@ const MealCard = ({ data }) => {
                         {data.price}$
                     </h1>
                     <Link
-                        to={`meals/${data._id}`}
+                        to={`/meals/${data._id}`}
                         className="btn bg-[#5fbf54] text-white border-none"
                     >
                         View Details
