@@ -1,6 +1,6 @@
 const MembershipCard = ({ data }) => {
     return (
-        <div className="bg-[#eef8ef] p-4 md:p-8 my-10 rounded-lg shadow-lg">
+        <div className="bg-[#eef8ef] p-4 md:p-8 rounded-lg shadow-lg">
             <div className="flex justify-center items-center mb-4">
                 <img
                     className="max-w-[100px] max-h-[100px]"
