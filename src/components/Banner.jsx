@@ -20,7 +20,7 @@ const Banner = () => {
                         a brighter tomorrow.
                     </p>
                     <div className="flex flex-col md:flex-row justify-center gap-2">
-                        <label className="input input-bordered flex items-center gap-2 border-[#5fbf54]">
+                        <label className="bg-[#5fbf540e] input input-bordered flex items-center gap-2 border-[#5fbf54]">
                             <input
                                 type="text"
                                 className="grow text-[#5fbf54] placeholder-[#5fbf54] bg-[#5fbf54] bg-opacity-10"
@@ -39,7 +39,7 @@ const Banner = () => {
                                 />
                             </svg>
                         </label>
-                        <button className="btn bg-[#5fbf54] text-white border-none">
+                        <button className="btn w-max mx-auto md:mx-0 bg-[#5fbf54] text-white border-none">
                             Search
                         </button>
                     </div>

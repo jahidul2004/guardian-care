@@ -9,7 +9,7 @@ import lobby from "../../assets/facilities/lobby.jpg";
 
 const Facilities = () => {
     return (
-        <div className="bg-[#eef8ef] p-10 mt-10">
+        <div className="bg-[#eef8ef] p-5 md:p-10 mt-10">
             <h1 className="text-center font-bold text-3xl py-4 mb-10">
                 Our Facilities
             </h1>

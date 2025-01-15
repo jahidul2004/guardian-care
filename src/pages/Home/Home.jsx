@@ -1,6 +1,7 @@
 import Banner from "../../components/Banner";
 import Facilities from "./Facilities";
 import MealsBy from "./MealsBy";
+import Membership from "./Membership";
 
 const Home = () => {
     return (
@@ -16,6 +17,10 @@ const Home = () => {
             {/* Facilities */}
             <Facilities></Facilities>
             {/* Facilities end */}
+
+            {/* Membership */}
+            <Membership></Membership>
+            {/* Membership end */}
         </div>
     );
 };

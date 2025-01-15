@@ -1,0 +1,38 @@
+[
+    {
+        "membershipId": "S001",
+        "membershipType": "Silver",
+        "membershipIcon": "https://i.ibb.co.com/7GzqndN/17155284.png",
+        "benefits": [
+            "10% discount",
+            "Free Shipping",
+            "Standard Support",
+            "Access to VIP Events"
+        ],
+        "price": "100"
+    },
+    {
+        "membershipId": "G001",
+        "membershipType": "Gold",
+        "membershipIcon": "https://i.ibb.co.com/pwzmRnG/11280638.png",
+        "benefits": [
+            "10% discount",
+            "Free Shipping",
+            "Standard Support",
+            "Access to VIP Events"
+        ],
+        "price": "200"
+    },
+    {
+        "membershipId": "P001",
+        "membershipType": "Platinum",
+        "membershipIcon": "https://i.ibb.co.com/zsy7pRD/platinum.png",
+        "benefits": [
+            "10% discount",
+            "Free Shipping",
+            "Standard Support",
+            "Access to VIP Events"
+        ],
+        "price": "500"
+    }
+]
