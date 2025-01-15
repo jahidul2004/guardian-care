@@ -1,0 +1,182 @@
+[
+    {
+        "id": 1,
+        "title": "Pancake Delight",
+        "image": "https://via.placeholder.com/150",
+        "rating": 4.5,
+        "price": 8.99,
+        "description": "Fluffy pancakes served with maple syrup and butter.",
+        "category": "Breakfast"
+    },
+    {
+        "id": 2,
+        "title": "Classic Omelette",
+        "image": "https://via.placeholder.com/150",
+        "rating": 4.3,
+        "price": 6.99,
+        "description": "A three-egg omelette with cheese and vegetables.",
+        "category": "Breakfast"
+    },
+    {
+        "id": 3,
+        "title": "French Toast",
+        "image": "https://via.placeholder.com/150",
+        "rating": 4.7,
+        "price": 7.49,
+        "description": "Golden-brown toast with powdered sugar and fresh fruit.",
+        "category": "Breakfast"
+    },
+    {
+        "id": 4,
+        "title": "Avocado Toast",
+        "image": "https://via.placeholder.com/150",
+        "rating": 4.8,
+        "price": 5.99,
+        "description": "Sourdough bread topped with fresh avocado and spices.",
+        "category": "Breakfast"
+    },
+    {
+        "id": 5,
+        "title": "Eggs Benedict",
+        "image": "https://via.placeholder.com/150",
+        "rating": 4.6,
+        "price": 9.99,
+        "description": "Poached eggs with hollandaise sauce on English muffins.",
+        "category": "Breakfast"
+    },
+    {
+        "id": 6,
+        "title": "Grilled Chicken Salad",
+        "image": "https://via.placeholder.com/150",
+        "rating": 4.2,
+        "price": 12.99,
+        "description": "Fresh greens with grilled chicken and a light vinaigrette.",
+        "category": "Lunch"
+    },
+    {
+        "id": 7,
+        "title": "Cheeseburger",
+        "image": "https://via.placeholder.com/150",
+        "rating": 4.4,
+        "price": 11.99,
+        "description": "Juicy beef patty with cheese, lettuce, and tomato.",
+        "category": "Lunch"
+    },
+    {
+        "id": 8,
+        "title": "Veggie Wrap",
+        "image": "https://via.placeholder.com/150",
+        "rating": 4.1,
+        "price": 9.49,
+        "description": "Whole wheat wrap filled with fresh vegetables and hummus.",
+        "category": "Lunch"
+    },
+    {
+        "id": 9,
+        "title": "Chicken Alfredo Pasta",
+        "image": "https://via.placeholder.com/150",
+        "rating": 4.6,
+        "price": 13.99,
+        "description": "Creamy Alfredo pasta with grilled chicken and parmesan.",
+        "category": "Lunch"
+    },
+    {
+        "id": 10,
+        "title": "Caesar Salad",
+        "image": "https://via.placeholder.com/150",
+        "rating": 4.5,
+        "price": 8.49,
+        "description": "Crisp romaine lettuce with Caesar dressing and croutons.",
+        "category": "Lunch"
+    },
+    {
+        "id": 11,
+        "title": "Grilled Salmon",
+        "image": "https://via.placeholder.com/150",
+        "rating": 4.8,
+        "price": 18.99,
+        "description": "Perfectly grilled salmon served with lemon butter sauce.",
+        "category": "Dinner"
+    },
+    {
+        "id": 12,
+        "title": "Beef Steak",
+        "image": "https://via.placeholder.com/150",
+        "rating": 4.7,
+        "price": 22.99,
+        "description": "Tender beef steak served with mashed potatoes and veggies.",
+        "category": "Dinner"
+    },
+    {
+        "id": 13,
+        "title": "Vegetable Stir Fry",
+        "image": "https://via.placeholder.com/150",
+        "rating": 4.4,
+        "price": 14.99,
+        "description": "A mix of fresh vegetables stir-fried in a savory sauce.",
+        "category": "Dinner"
+    },
+    {
+        "id": 14,
+        "title": "Chicken Curry",
+        "image": "https://via.placeholder.com/150",
+        "rating": 4.6,
+        "price": 15.49,
+        "description": "Spicy chicken curry served with steamed rice.",
+        "category": "Dinner"
+    },
+    {
+        "id": 15,
+        "title": "Seafood Paella",
+        "image": "https://via.placeholder.com/150",
+        "rating": 4.9,
+        "price": 20.99,
+        "description": "Traditional Spanish rice dish with seafood and spices.",
+        "category": "Dinner"
+    },
+    {
+        "id": 16,
+        "title": "Bagel and Cream Cheese",
+        "image": "https://via.placeholder.com/150",
+        "rating": 4.3,
+        "price": 4.99,
+        "description": "Freshly baked bagel served with creamy cheese spread.",
+        "category": "Breakfast"
+    },
+    {
+        "id": 17,
+        "title": "Chicken Caesar Wrap",
+        "image": "https://via.placeholder.com/150",
+        "rating": 4.5,
+        "price": 10.99,
+        "description": "Grilled chicken with Caesar dressing in a tortilla wrap.",
+        "category": "Lunch"
+    },
+    {
+        "id": 18,
+        "title": "Margherita Pizza",
+        "image": "https://via.placeholder.com/150",
+        "rating": 4.7,
+        "price": 12.99,
+        "description": "Classic Margherita pizza with fresh basil and mozzarella.",
+        "category": "Dinner"
+    },
+    {
+        "id": 19,
+        "title": "Tomato Basil Soup",
+        "image": "https://via.placeholder.com/150",
+        "rating": 4.2,
+        "price": 6.49,
+        "description": "Creamy tomato soup with a hint of fresh basil.",
+        "category": "Lunch"
+    },
+    {
+        "id": 20,
+        "title": "Shrimp Scampi",
+        "image": "https://via.placeholder.com/150",
+        "rating": 4.8,
+        "price": 19.99,
+        "description": "Garlic butter shrimp served with pasta and parsley.",
+        "category": "Dinner"
+    }
+]
