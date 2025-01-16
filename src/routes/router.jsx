@@ -5,6 +5,8 @@ import MealDetails from "../pages/details/MealDetails";
 import Meals from "../pages/meals/Meals";
 import Login from "../pages/Login/Login";
 import Register from "../pages/register/Register";
+import UserDashboard from "../pages/userDashboard/UserDashboard";
+import MyProfile from "../pages/userDashboard/profile/MyProfile";
 
 const router = createBrowserRouter([
     {
@@ -40,9 +42,31 @@ const router = createBrowserRouter([
                 element: <Login></Login>,
             },
             {
-                path:"/register",
-                element:<Register></Register>
-            }
+                path: "/register",
+                element: <Register></Register>,
+            },
+            {
+                path: "/dashboard/user",
+                element: <UserDashboard></UserDashboard>,
+                children: [
+                    {
+                        path: "/dashboard/user/profile",
+                        element: <MyProfile></MyProfile>,
+                    },
+                    {
+                        path: "/dashboard/user/requestedMeal",
+                        element: <h1>Requested Meal</h1>,
+                    },
+                    {
+                        path: "/dashboard/user/myReview",
+                        element: <h1>My Review</h1>,
+                    },
+                    {
+                        path: "/dashboard/user/paymentHistory",
+                        element: <h1>Payment History</h1>,
+                    },
+                ],
+            },
         ],
     },
 ]);
