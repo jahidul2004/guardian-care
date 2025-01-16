@@ -1,9 +1,12 @@
+import auth from "../../firebase/firebase.init";
 import AuthContext from "./AuthContext";
 
 const AuthProvider = ({ children }) => {
-    const name = "John Doe";
+    const registerUser = (email, password) => {
+        return createUserWithEmailAndPassword(auth, email, password);
+    };
     const data = {
-        name,
+        registerUser,
     };
 
     return <AuthContext.Provider value={data}>{children}</AuthContext.Provider>;
