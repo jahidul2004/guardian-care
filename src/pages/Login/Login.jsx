@@ -1,15 +1,53 @@
 import Lottie from "lottie-react";
 import loginLottie from "../../assets/lottie/login.json";
 import { FcGoogle } from "react-icons/fc";
+import { useContext } from "react";
+import AuthContext from "../../context/AuthContext/AuthContext";
+import Swal from "sweetalert2";
 
 const Login = () => {
+    const { login, setUser } = useContext(AuthContext);
+
+    const handleLogin = (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const email = form.email.value;
+        const password = form.password.value;
+        login(email, password)
+            .then((user) => {
+                setUser(user.user);
+                Swal.fire({
+                    title: "Success!",
+                    text: "Log In successfully!",
+                    icon: "success",
+                    confirmButtonText: "Close",
+                    customClass: {
+                        confirmButton:
+                            "btn bg-[#5fbf54] text-white border-none",
+                    },
+                });
+                form.reset();
+            })
+            .catch((error) => {
+                Swal.fire({
+                    title: "Oops!",
+                    text: error.message,
+                    icon: "error",
+                    confirmButtonText: "Close",
+                    customClass: {
+                        confirmButton: "btn btn-error text-white border-none",
+                    },
+                });
+                form.reset();
+            });
+    };
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 p-5 md:p-10">
             <div className="order-2 md:order-1 card bg-base-100 w-full md:w-[70%] shrink-0 shadow-2xl mx-auto">
                 <h1 className="text-center text-2xl md:text-3xl font-bold my-4 text-[#5fbf54]">
                     Login
                 </h1>
-                <form className="card-body">
+                <form onSubmit={handleLogin} className="card-body">
                     <div className="form-control">
                         <label className="label">
                             <span className="label-text">Email</span>
@@ -43,13 +81,19 @@ const Login = () => {
                         </label>
                     </div>
                     <div className="form-control mt-6">
-                        <button className="btn bg-[#5fbf54] text-white border-none">
+                        <button
+                            type="submit"
+                            className="btn bg-[#5fbf54] text-white border-none"
+                        >
                             Login
                         </button>
                         <br />
                         <span className="text-center">or</span>
                         <br />
-                        <button className="btn bg-[#5fbf54] text-white border-none">
+                        <button
+                            type="button"
+                            className="btn bg-[#5fbf54] text-white border-none"
+                        >
                             <FcGoogle />
                             Login With Google
                         </button>
