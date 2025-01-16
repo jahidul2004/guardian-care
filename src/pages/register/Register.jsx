@@ -64,6 +64,7 @@ const Register = () => {
                                         "btn bg-[#5fbf54] text-white border-none",
                                 },
                             });
+                            e.target.reset();
                         })
                         .catch((error) => {
                             Swal.fire({
