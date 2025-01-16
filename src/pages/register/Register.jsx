@@ -49,7 +49,7 @@ const Register = () => {
 
                     newUser.photoURL = imageUrl;
                     newUser.role = "user";
-                    newUser.badge = "silver";
+                    newUser.badge = "bronze";
 
                     axios
                         .post("http://localhost:3000/users", newUser)
