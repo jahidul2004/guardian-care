@@ -1,11 +1,14 @@
 import Lottie from "lottie-react";
 import loginLottie from "../../assets/lottie/login.json";
 import axios from "axios";
+import { useContext } from "react";
+import AuthContext from "../../context/AuthContext/AuthContext";
 
 const apiKye = import.meta.env.VITE_IMAGEBB_API_KEY;
 const imgApi = `https://api.imgbb.com/1/upload?key=${apiKye}`;
 
 const Register = () => {
+    const { registerUser } = useContext(AuthContext);
     const handleRegister = async (e) => {
         e.preventDefault();
 
@@ -30,6 +33,14 @@ const Register = () => {
             });
 
             const imageUrl = res.data.data.url;
+
+            registerUser(email, password)
+                .then((user) => {
+                    console.log("User registered:", user);
+                })
+                .catch((error) => {
+                    console.error("User registration failed:", error);
+                });
         } catch (error) {
             console.error("Image upload failed:", error);
         }
