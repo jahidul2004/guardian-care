@@ -18,6 +18,12 @@ const Register = () => {
         const password = e.target.password.value;
         const file = e.target.image.files[0];
 
+        const newUser = {
+            name,
+            email,
+            password,
+        };
+
         try {
             const formData = new FormData();
             formData.append("image", file);
@@ -40,16 +46,37 @@ const Register = () => {
                             console.error("User update failed:", error);
                         });
                     setUser(user);
-                    Swal.fire({
-                        title: "Success!",
-                        text: "Registered successfully!",
-                        icon: "success",
-                        confirmButtonText: "Close",
-                        customClass: {
-                            confirmButton:
-                                "btn bg-[#5fbf54] text-white border-none",
-                        },
-                    });
+
+                    newUser.photoURL = imageUrl;
+                    newUser.role = "user";
+                    newUser.badge = "silver";
+
+                    axios
+                        .post("http://localhost:3000/users", newUser)
+                        .then((res) => {
+                            Swal.fire({
+                                title: "Success!",
+                                text: "Registered successfully!",
+                                icon: "success",
+                                confirmButtonText: "Close",
+                                customClass: {
+                                    confirmButton:
+                                        "btn bg-[#5fbf54] text-white border-none",
+                                },
+                            });
+                        })
+                        .catch((error) => {
+                            Swal.fire({
+                                title: "Oops!",
+                                text: error.message,
+                                icon: "error",
+                                confirmButtonText: "Close",
+                                customClass: {
+                                    confirmButton:
+                                        "btn btn-error text-white border-none",
+                                },
+                            });
+                        });
                 })
                 .catch((error) => {
                     Swal.fire({
