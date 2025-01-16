@@ -1,9 +1,35 @@
+import axios from "axios";
 import { AiOutlineLike } from "react-icons/ai";
 import { useLoaderData } from "react-router-dom";
 import StarRatings from "react-star-ratings";
+import { useState } from "react";
 
 const MealDetails = () => {
     const data = useLoaderData();
+    const [likeCount, setLikeCount] = useState(data.likeCount || 0);
+    const [isLiked, setIsLiked] = useState(false);
+
+    const handleLike = (_id) => {
+        console.log(_id);
+
+        setIsLiked(true);
+
+        setLikeCount((prevCount) => prevCount + 1);
+
+        axios
+            .put(`http://localhost:3000/meals/${_id}`, {
+                likeCount: likeCount + 1,
+            })
+            .then((res) => {
+                console.log("Server updated:", res.data);
+            })
+            .catch((err) => {
+                console.error(err);
+                setIsLiked(false);
+                setLikeCount((prevCount) => prevCount - 1);
+            });
+    };
+
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 p-5 md:p-10">
             <div className="h-[400px] w-full">
@@ -26,8 +52,23 @@ const MealDetails = () => {
                 />
 
                 <div className="flex items-center gap-4 mt-4">
-                    <button className="btn border-2 border-[#5fbf54]">
-                        <AiOutlineLike className="font-bold text-2xl text-[#5fbf54]" />
+                    <button
+                        onClick={() => {
+                            handleLike(data._id);
+                        }}
+                        disabled={isLiked}
+                        className={`btn border-2 ${
+                            isLiked
+                                ? "border-gray-400 text-gray-400"
+                                : "border-[#5fbf54]"
+                        }`}
+                    >
+                        <AiOutlineLike
+                            className={`font-bold text-2xl ${
+                                isLiked ? "text-gray-400" : "text-[#5fbf54]"
+                            }`}
+                        />
+                        <span>{likeCount}</span>
                     </button>
                     <button className="btn bg-[#5fbf54] text-white border-none mt-2">
                         Order Now
