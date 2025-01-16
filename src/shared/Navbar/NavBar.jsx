@@ -7,9 +7,10 @@ import { GiMeal } from "react-icons/gi";
 import { MdOutlineUpcoming } from "react-icons/md";
 import { useContext } from "react";
 import AuthContext from "../../context/AuthContext/AuthContext";
+import Swal from "sweetalert2";
 
 const NavBar = () => {
-    const { user } = useContext(AuthContext);
+    const { user, logout } = useContext(AuthContext);
     const links = (
         <>
             <li>
@@ -67,7 +68,38 @@ const NavBar = () => {
                                             </Link>
                                         </li>
                                         <li>
-                                            <button className="btn btn-error text-white border-none">
+                                            <button
+                                                onClick={() => {
+                                                    logout()
+                                                        .then(() => {
+                                                            Swal.fire({
+                                                                title: "Success!",
+                                                                text: "Log Out successfully!",
+                                                                icon: "success",
+                                                                confirmButtonText:
+                                                                    "Close",
+                                                                customClass: {
+                                                                    confirmButton:
+                                                                        "btn bg-[#5fbf54] text-white border-none",
+                                                                },
+                                                            });
+                                                        })
+                                                        .catch((error) => {
+                                                            Swal.fire({
+                                                                title: "Oops!",
+                                                                text: error.message,
+                                                                icon: "error",
+                                                                confirmButtonText:
+                                                                    "Close",
+                                                                customClass: {
+                                                                    confirmButton:
+                                                                        "btn btn-error text-white border-none",
+                                                                },
+                                                            });
+                                                        });
+                                                }}
+                                                className="btn btn-error text-white border-none"
+                                            >
                                                 Logout
                                             </button>
                                         </li>
@@ -126,7 +158,38 @@ const NavBar = () => {
                                     </Link>
                                 </li>
                                 <li>
-                                    <button className="btn btn-error text-white border-none">
+                                    <button
+                                        onClick={() => {
+                                            logout()
+                                                .then(() => {
+                                                    Swal.fire({
+                                                        title: "Success!",
+                                                        text: "Log Out successfully!",
+                                                        icon: "success",
+                                                        confirmButtonText:
+                                                            "Close",
+                                                        customClass: {
+                                                            confirmButton:
+                                                                "btn bg-[#5fbf54] text-white border-none",
+                                                        },
+                                                    });
+                                                })
+                                                .catch((error) => {
+                                                    Swal.fire({
+                                                        title: "Oops!",
+                                                        text: error.message,
+                                                        icon: "error",
+                                                        confirmButtonText:
+                                                            "Close",
+                                                        customClass: {
+                                                            confirmButton:
+                                                                "btn btn-error text-white border-none",
+                                                        },
+                                                    });
+                                                });
+                                        }}
+                                        className="btn btn-error text-white border-none"
+                                    >
                                         Logout
                                     </button>
                                 </li>
@@ -143,7 +206,7 @@ const NavBar = () => {
                     </Link>
                 )}
 
-                <IoNotificationsCircleOutline className="text-4xl mr-5 text-[#5fbf54] cursor-pointer" />
+                <IoNotificationsCircleOutline className="text-4xl ml-5 text-[#5fbf54] cursor-pointer" />
             </div>
         </div>
     );
