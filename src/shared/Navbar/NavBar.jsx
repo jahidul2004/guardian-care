@@ -5,9 +5,11 @@ import { IoNotificationsCircleOutline } from "react-icons/io5";
 import { RiHome9Line, RiMenuFill } from "react-icons/ri";
 import { GiMeal } from "react-icons/gi";
 import { MdOutlineUpcoming } from "react-icons/md";
-import { LuSquareMenu } from "react-icons/lu";
+import { useContext } from "react";
+import AuthContext from "../../context/AuthContext/AuthContext";
 
 const NavBar = () => {
+    const { user } = useContext(AuthContext);
     const links = (
         <>
             <li>
@@ -42,6 +44,45 @@ const NavBar = () => {
                         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
                     >
                         {links}
+                        {user ? (
+                            <div>
+                                <details className="dropdown">
+                                    <summary className="btn my-2 mb-4 bg-white border-none shadow-none m-1">
+                                        <img
+                                            className="h-[40px] w-[40px] rounded-full border-2 border-[#5fbf54] p-1 cursor-pointer"
+                                            src={user?.photoURL}
+                                            alt=""
+                                        />
+                                        <p className="font-semibold text-[#5fbf54] text-center">
+                                            {user?.displayName}
+                                        </p>
+                                    </summary>
+                                    <ul className="menu dropdown-content bg-base-100 rounded-box z-[1] p-2 shadow gap-2">
+                                        <li>
+                                            <Link
+                                                to={"dashboard"}
+                                                className="btn bg-[#5fbf54] text-white border-none"
+                                            >
+                                                Dashboard
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <button className="btn btn-error text-white border-none">
+                                                Logout
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </details>
+                            </div>
+                        ) : (
+                            <Link
+                                to={"/login"}
+                                className="btn bg-[#5fbf54] text-white hover:text-[#5fbf54]"
+                            >
+                                <IoMdLogIn />
+                                Join With Us
+                            </Link>
+                        )}
                     </ul>
                 </div>
                 <div className="flex items-center gap-2">
@@ -61,14 +102,48 @@ const NavBar = () => {
                 <ul className="menu menu-horizontal px-1">{links}</ul>
             </div>
             <div className="hidden md:flex">
+                {user ? (
+                    <div>
+                        <details className="dropdown">
+                            <summary className="btn bg-white border-none shadow-none m-1">
+                                <img
+                                    className="h-[40px] w-[40px] rounded-full border-2 border-[#5fbf54] p-1 cursor-pointer"
+                                    src={user?.photoURL}
+                                    alt=""
+                                />
+                            </summary>
+                            <ul className="menu dropdown-content bg-base-100 rounded-box z-[1] p-2 shadow gap-2">
+                                <p className="font-semibold text-[#5fbf54] text-center">
+                                    {user?.displayName}
+                                </p>
+
+                                <li>
+                                    <Link
+                                        to={"dashboard"}
+                                        className="btn bg-[#5fbf54] text-white border-none"
+                                    >
+                                        Dashboard
+                                    </Link>
+                                </li>
+                                <li>
+                                    <button className="btn btn-error text-white border-none">
+                                        Logout
+                                    </button>
+                                </li>
+                            </ul>
+                        </details>
+                    </div>
+                ) : (
+                    <Link
+                        to={"/login"}
+                        className="btn bg-[#5fbf54] text-white hover:text-[#5fbf54]"
+                    >
+                        <IoMdLogIn />
+                        Join With Us
+                    </Link>
+                )}
+
                 <IoNotificationsCircleOutline className="text-4xl mr-5 text-[#5fbf54] cursor-pointer" />
-                <Link
-                    to={"/login"}
-                    className="btn bg-[#5fbf54] text-white hover:text-[#5fbf54]"
-                >
-                    <IoMdLogIn />
-                    Join With Us
-                </Link>
             </div>
         </div>
     );
