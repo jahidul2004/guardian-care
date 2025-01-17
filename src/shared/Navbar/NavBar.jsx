@@ -61,7 +61,7 @@ const NavBar = () => {
                                     <ul className="menu dropdown-content bg-base-100 rounded-box z-[1] p-2 shadow gap-2">
                                         <li>
                                             <Link
-                                                to={"dashboard"}
+                                                to={"/dashboard/user/profile"}
                                                 className="btn bg-[#5fbf54] text-white border-none"
                                             >
                                                 Dashboard
@@ -151,7 +151,7 @@ const NavBar = () => {
 
                                 <li>
                                     <Link
-                                        to={"dashboard"}
+                                        to={"/dashboard/user/profile"}
                                         className="btn bg-[#5fbf54] text-white border-none"
                                     >
                                         Dashboard
