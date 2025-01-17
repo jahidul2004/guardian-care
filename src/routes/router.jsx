@@ -20,7 +20,11 @@ const router = createBrowserRouter([
             },
             {
                 path: "/meals/:id",
-                element: <MealDetails></MealDetails>,
+                element: (
+                    <PrivateRoute>
+                        <MealDetails></MealDetails>
+                    </PrivateRoute>
+                ),
                 loader: async ({ params }) => {
                     const data = await fetch(
                         `http://localhost:3000/meals/${params.id}`

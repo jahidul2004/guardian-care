@@ -1,8 +1,8 @@
 import axios from "axios";
 import { AiOutlineLike } from "react-icons/ai";
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import StarRatings from "react-star-ratings";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import AuthContext from "../../context/AuthContext/AuthContext";
 import Swal from "sweetalert2";
 
@@ -11,7 +11,53 @@ const MealDetails = () => {
     const [likeCount, setLikeCount] = useState(data.likeCount || 0);
     const [isLiked, setIsLiked] = useState(false);
 
+    const [dbUser, setDbUser] = useState(null);
+
     const { user } = useContext(AuthContext);
+
+    useEffect(() => {
+        fetch(`http://localhost:3000/user/${user?.email}`)
+            .then((res) => res.json())
+            .then((data) => {
+                setDbUser(data);
+            });
+    }, []);
+
+    const handleRequestMeal = (_id) => {
+        if (dbUser?.badge === "bronze") {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "You need to be a silver or gold or platinum member to request a meal!",
+            });
+            return;
+        }
+        const request = {
+            mealId: _id,
+            userEmail: user.email,
+            userName: user.displayName,
+            userBadge: dbUser.badge,
+            status: "pending",
+        };
+
+        axios
+            .post("http://localhost:3000/mealRequests", request)
+            .then((res) => {
+                Swal.fire({
+                    icon: "success",
+                    title: "Success",
+                    text: "Your request has been sent successfully!",
+                });
+            })
+            .catch((err) => {
+                console.error(err);
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Something went wrong!",
+                });
+            });
+    };
 
     const handleLike = (_id) => {
         setIsLiked(true);
@@ -84,8 +130,14 @@ const MealDetails = () => {
                         />
                         <span>{likeCount}</span>
                     </button>
-                    <button className="btn bg-[#5fbf54] text-white border-none mt-2">
-                        Order Now
+
+                    <button
+                        onClick={() => {
+                            handleRequestMeal(data._id);
+                        }}
+                        className="btn bg-[#5fbf54] text-white border-none mt-2"
+                    >
+                        Request For This Meal
                     </button>
                 </div>
 
