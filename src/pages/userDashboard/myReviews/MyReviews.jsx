@@ -1,9 +1,26 @@
+import { useContext, useEffect, useState } from "react";
+import AuthContext from "../../../context/AuthContext/AuthContext";
+
 const MyReviews = () => {
+    const { user } = useContext(AuthContext);
+    const [reviews, setReviews] = useState([]);
+
+    console.log(reviews);
+
+    useEffect(() => {
+        fetch(`http://localhost:3000/reviews/${user?.email}`)
+            .then((res) => res.json())
+            .then((data) => {
+                setReviews(data);
+            });
+    }, []);
     return (
         <div>
-            <h1>My Reviews</h1>
+            <h1 className="text-center font-bold text-3xl py-4 mb-10">
+                My Reviews
+            </h1>
 
-            <div className="overflow-x-auto">
+            <div className="overflow-x-auto border">
                 <table className="table">
                     {/* head */}
                     <thead>
@@ -16,22 +33,24 @@ const MyReviews = () => {
                     </thead>
                     <tbody>
                         {/* row 1 */}
-                        <tr>
-                            <td>Title</td>
-                            <td>Review</td>
-                            <td>Likes</td>
-                            <td className="flex gap-2">
-                                <button className="btn bg-[#5fbf54] btn-sm text-white border-none">
-                                    Edit
-                                </button>
-                                <button className="btn btn-error btn-sm text-white border-none">
-                                    Delete
-                                </button>
-                                <button className="btn btn-success btn-sm text-white border-none">
-                                    View Meal
-                                </button>
-                            </td>
-                        </tr>
+                        {reviews.map((review) => (
+                            <tr>
+                                <td>{review?.mealTitle}</td>
+                                <td>{review?.text}</td>
+                                <td>{review?.likeCount || 0}</td>
+                                <td className="flex gap-2">
+                                    <button className="btn bg-[#5fbf54] btn-sm text-white border-none">
+                                        Edit
+                                    </button>
+                                    <button className="btn btn-error btn-sm text-white border-none">
+                                        Delete
+                                    </button>
+                                    <button className="btn btn-success btn-sm text-white border-none">
+                                        View Meal
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
             </div>
