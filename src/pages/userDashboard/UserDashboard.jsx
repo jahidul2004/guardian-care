@@ -25,25 +25,25 @@ const UserDashboard = () => {
                 {/* Sidebar Content */}
                 <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4 font-semibold">
                     <li>
-                        <Link to={"/dashboard/user/profile"}>
+                        <Link to={"profile"}>
                             <CgProfile />
                             My Profile
                         </Link>
                     </li>
                     <li>
-                        <Link to={"/dashboard/user/requestedMeal"}>
+                        <Link to={"requestedMeal"}>
                             <GiMeal />
                             Requested Meal
                         </Link>
                     </li>
                     <li>
-                        <Link to={"/dashboard/user/myReview"}>
+                        <Link to={"myReview"}>
                             <MdOutlineReviews />
                             My Reviews
                         </Link>
                     </li>
                     <li>
-                        <Link to={"/dashboard/user/paymentHistory"}>
+                        <Link to={"paymentHistory"}>
                             <LuBadgeDollarSign />
                             Payment History
                         </Link>

@@ -7,6 +7,7 @@ import Login from "../pages/Login/Login";
 import Register from "../pages/register/Register";
 import UserDashboard from "../pages/userDashboard/UserDashboard";
 import MyProfile from "../pages/userDashboard/profile/MyProfile";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
     {
@@ -47,22 +48,26 @@ const router = createBrowserRouter([
             },
             {
                 path: "/dashboard/user",
-                element: <UserDashboard></UserDashboard>,
+                element: (
+                    <PrivateRoute>
+                        <UserDashboard></UserDashboard>
+                    </PrivateRoute>
+                ),
                 children: [
                     {
-                        path: "/dashboard/user/profile",
+                        path: "profile",
                         element: <MyProfile></MyProfile>,
                     },
                     {
-                        path: "/dashboard/user/requestedMeal",
+                        path: "requestedMeal",
                         element: <h1>Requested Meal</h1>,
                     },
                     {
-                        path: "/dashboard/user/myReview",
+                        path: "myReview",
                         element: <h1>My Review</h1>,
                     },
                     {
-                        path: "/dashboard/user/paymentHistory",
+                        path: "paymentHistory",
                         element: <h1>Payment History</h1>,
                     },
                 ],

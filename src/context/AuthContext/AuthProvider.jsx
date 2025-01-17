@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -19,6 +20,7 @@ const AuthProvider = ({ children }) => {
             } else {
                 setUser(null);
             }
+            setLoading(false);
         });
 
         return () => {
@@ -27,16 +29,19 @@ const AuthProvider = ({ children }) => {
     }, []);
 
     const registerUser = (email, password) => {
+        setLoading(true);
         return createUserWithEmailAndPassword(auth, email, password);
     };
 
     const login = (email, password) => {
+        setLoading(true);
         return signInWithEmailAndPassword(auth, email, password);
-    }
+    };
 
     const logout = () => {
-        return signOut(auth);
-    }
+        setLoading(true);
+        return signOut(auth).finally(() => setLoading(false));
+    };
 
     const updateUser = (displayName, photoURL) => {
         return updateProfile(auth.currentUser, {
@@ -44,6 +49,7 @@ const AuthProvider = ({ children }) => {
             photoURL,
         });
     };
+
     const data = {
         user,
         setUser,
@@ -51,6 +57,8 @@ const AuthProvider = ({ children }) => {
         updateUser,
         login,
         logout,
+        loading,
+        setLoading,
     };
 
     return <AuthContext.Provider value={data}>{children}</AuthContext.Provider>;
