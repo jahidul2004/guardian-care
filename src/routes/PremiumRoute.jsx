@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import AuthContext from "../context/AuthContext/AuthContext";
+
 import Swal from "sweetalert2";
 
-const PrivateRoute = ({ children }) => {
+const PremiumRoute = ({ children }) => {
     const { user, loading } = useContext(AuthContext);
 
     if (loading) {
@@ -24,4 +24,4 @@ const PrivateRoute = ({ children }) => {
     });
 };
 
-export default PrivateRoute;
+export default PremiumRoute;

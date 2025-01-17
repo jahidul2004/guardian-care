@@ -11,6 +11,8 @@ import PrivateRoute from "./PrivateRoute";
 import UpcomingMeals from "../pages/upcomingMeal/UpcomingMeals";
 import RequestedMeals from "../pages/userDashboard/requestedMeals/RequestedMeals";
 import MyReviews from "../pages/userDashboard/myReviews/MyReviews";
+import AdminDashboard from "../pages/adminDashboard/AdminDashboard";
+import AdminRoute from "./AdminRoute";
 
 const router = createBrowserRouter([
     {
@@ -90,6 +92,14 @@ const router = createBrowserRouter([
                 },
             },
         ],
+    },
+    {
+        path: "/adminDashboard",
+        element: (
+            <AdminRoute>
+                <AdminDashboard></AdminDashboard>
+            </AdminRoute>
+        ),
     },
 ]);
 

@@ -3,7 +3,6 @@ import MembershipCard from "../../components/MembershipCard";
 
 const Membership = () => {
     const [membership, setMembership] = useState([]);
-    console.log(membership);
     useEffect(() => {
         fetch("membership.json")
             .then((res) => res.json())
