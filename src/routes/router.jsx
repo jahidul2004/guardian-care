@@ -17,6 +17,7 @@ import AdminProfile from "../pages/adminDashboard/adminProfile/AdminProfile";
 import ManageUser from "../pages/adminDashboard/manageUser/ManageUser";
 import AddMeal from "../pages/adminDashboard/addMeal/AddMeal";
 import AllMeals from "../pages/adminDashboard/allMeals/AllMeals";
+import AllReview from "../pages/adminDashboard/allReview/AllReview";
 
 const router = createBrowserRouter([
     {
@@ -119,7 +120,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "allReview",
-                element: <h1>All Review</h1>
+                element: <AllReview></AllReview>
             },
             {
                 path: "serveMeal",
