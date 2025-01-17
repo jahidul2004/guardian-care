@@ -120,6 +120,8 @@ const MealDetails = () => {
             text,
             postTime: new Date().toLocaleString(),
             profileImage: user?.photoURL,
+            mealTitle: data?.title,
+            likeCount: data?.likeCount,
         };
 
         axios

@@ -10,6 +10,7 @@ import MyProfile from "../pages/userDashboard/profile/MyProfile";
 import PrivateRoute from "./PrivateRoute";
 import UpcomingMeals from "../pages/upcomingMeal/UpcomingMeals";
 import RequestedMeals from "../pages/userDashboard/requestedMeals/RequestedMeals";
+import MyReviews from "../pages/userDashboard/myReviews/MyReviews";
 
 const router = createBrowserRouter([
     {
@@ -70,7 +71,7 @@ const router = createBrowserRouter([
                     },
                     {
                         path: "myReview",
-                        element: <h1>My Review</h1>,
+                        element: <MyReviews></MyReviews>,
                     },
                     {
                         path: "paymentHistory",
