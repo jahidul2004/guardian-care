@@ -2,19 +2,33 @@ import axios from "axios";
 import { AiOutlineLike } from "react-icons/ai";
 import { useLoaderData } from "react-router-dom";
 import StarRatings from "react-star-ratings";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import AuthContext from "../../context/AuthContext/AuthContext";
+import Swal from "sweetalert2";
 
 const MealDetails = () => {
     const data = useLoaderData();
     const [likeCount, setLikeCount] = useState(data.likeCount || 0);
     const [isLiked, setIsLiked] = useState(false);
 
-    const handleLike = (_id) => {
-        console.log(_id);
+    const { user } = useContext(AuthContext);
 
+    const handleLike = (_id) => {
         setIsLiked(true);
 
         setLikeCount((prevCount) => prevCount + 1);
+
+        if (!user) {
+            setIsLiked(false);
+            setLikeCount((prevCount) => prevCount - 1);
+
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "You need to login first!",
+            });
+            return;
+        }
 
         axios
             .put(`http://localhost:3000/meals/${_id}`, {
