@@ -95,11 +95,37 @@ const router = createBrowserRouter([
     },
     {
         path: "/adminDashboard",
-        element: (
-            <AdminRoute>
-                <AdminDashboard></AdminDashboard>
-            </AdminRoute>
-        ),
+        element: <AdminDashboard></AdminDashboard>,
+        children:[
+            {
+                path: "profile",
+                element: <h1>Profile</h1>
+            },
+            {
+                path: "manageUser",
+                element: <h1>Manage User</h1>
+            },
+            {
+                path: "addMeal",
+                element: <h1>Add Meal</h1>
+            },
+            {
+                path: "allMeal",
+                element: <h1>All Meal</h1>
+            },
+            {
+                path: "allReview",
+                element: <h1>All Review</h1>
+            },
+            {
+                path: "serveMeal",
+                element: <h1>Serve Meal</h1>
+            },
+            {
+                path: "upcomingMeal",
+                element: <h1>Upcoming Meal</h1>
+            },
+        ]
     },
 ]);
 
