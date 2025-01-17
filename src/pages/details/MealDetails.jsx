@@ -10,6 +10,7 @@ const MealDetails = () => {
     const data = useLoaderData();
     const [likeCount, setLikeCount] = useState(data.likeCount || 0);
     const [isLiked, setIsLiked] = useState(false);
+    const [givenRating, setGivenRating] = useState(1);
 
     const [dbUser, setDbUser] = useState(null);
 
@@ -21,7 +22,7 @@ const MealDetails = () => {
             .then((data) => {
                 setDbUser(data);
             });
-    }, []);
+    }, [user?.email]);
 
     const handleRequestMeal = (_id) => {
         if (dbUser?.badge === "bronze") {
@@ -93,6 +94,52 @@ const MealDetails = () => {
             });
     };
 
+    const handleRating = (newRating) => {
+        if (!user) {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "You need to login first!",
+            });
+            return;
+        }
+
+        setGivenRating(newRating);
+    };
+
+    const handleReview = (e) => {
+        e.preventDefault();
+        const rating = givenRating;
+        const text = e.target.reviewText.value;
+
+        const newReview = {
+            mealId: data?._id,
+            userName: user?.displayName,
+            userEmail: user?.email,
+            rating,
+            text,
+            postTime: new Date().toLocaleString(),
+            profileImage: user?.photoURL,
+        };
+
+        axios
+            .post("http://localhost:3000/reviews", newReview)
+            .then((res) => {
+                Swal.fire({
+                    icon: "success",
+                    title: "Success",
+                    text: "Your review has been posted successfully!",
+                });
+            })
+            .catch((err) => {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: err.response.data.message,
+                });
+            });
+    };
+
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 p-5 md:p-10">
             <div className="h-[400px] w-full">
@@ -142,6 +189,38 @@ const MealDetails = () => {
                     >
                         Request For This Meal
                     </button>
+                </div>
+
+                <div className="mt-5">
+                    <h2 className="font-bold text-lg">Review this meal</h2>
+                    <form
+                        onSubmit={handleReview}
+                        className="flex flex-col lg:flex-row items-center gap-2"
+                    >
+                        <div>
+                            <StarRatings
+                                rating={givenRating}
+                                changeRating={handleRating}
+                                numberOfStars={5}
+                                name="userRating"
+                                starRatedColor="#5fbf54"
+                                starHoverColor="#4caf50"
+                                starDimension="25px"
+                                starSpacing="5px"
+                            />
+                        </div>
+                        <textarea
+                            required
+                            cols={30}
+                            rows={1}
+                            name="reviewText"
+                            className="textarea bg-transparent textarea-bordered"
+                            placeholder="Write something about this meal"
+                        ></textarea>
+                        <button className="btn bg-[#5fbf54] text-white border-none">
+                            Submit
+                        </button>
+                    </form>
                 </div>
 
                 <p className="absolute bottom-2 right-2 font-bold text-xs">
