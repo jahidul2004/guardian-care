@@ -1,5 +1,3 @@
-import { GrCommand } from "react-icons/gr";
-import { SiComma } from "react-icons/si";
 import StarRatings from "react-star-ratings";
 
 const ReviewCard = ({ data }) => {
