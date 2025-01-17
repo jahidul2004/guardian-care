@@ -13,6 +13,7 @@ import RequestedMeals from "../pages/userDashboard/requestedMeals/RequestedMeals
 import MyReviews from "../pages/userDashboard/myReviews/MyReviews";
 import AdminDashboard from "../pages/adminDashboard/AdminDashboard";
 import AdminRoute from "./AdminRoute";
+import AdminProfile from "../pages/adminDashboard/adminProfile/AdminProfile";
 
 const router = createBrowserRouter([
     {
@@ -99,7 +100,7 @@ const router = createBrowserRouter([
         children:[
             {
                 path: "profile",
-                element: <h1>Profile</h1>
+                element: <AdminProfile></AdminProfile>
             },
             {
                 path: "manageUser",
