@@ -26,7 +26,7 @@ const NavBar = () => {
                 </NavLink>
             </li>
             <li>
-                <NavLink to={"/upcoming"}>
+                <NavLink to={"/upcomingMeals"}>
                     <MdOutlineUpcoming />
                     Upcoming Meals
                 </NavLink>

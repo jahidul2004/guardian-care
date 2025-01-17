@@ -8,6 +8,7 @@ import Register from "../pages/register/Register";
 import UserDashboard from "../pages/userDashboard/UserDashboard";
 import MyProfile from "../pages/userDashboard/profile/MyProfile";
 import PrivateRoute from "./PrivateRoute";
+import UpcomingMeals from "../pages/upcomingMeal/UpcomingMeals";
 
 const router = createBrowserRouter([
     {
@@ -75,6 +76,16 @@ const router = createBrowserRouter([
                         element: <h1>Payment History</h1>,
                     },
                 ],
+            },
+            {
+                path: "/upcomingMeals",
+                element: <UpcomingMeals></UpcomingMeals>,
+                loader: async () => {
+                    const data = await fetch(
+                        "http://localhost:3000/upcomingMeals"
+                    ).then((res) => res.json());
+                    return data;
+                },
             },
         ],
     },

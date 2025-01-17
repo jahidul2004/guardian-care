@@ -6,16 +6,16 @@ const MealCard = ({ data }) => {
         <div className="card bg-base-100 shadow-xl">
             <figure>
                 <img
-                    src={data.image}
+                    src={data?.image}
                     alt="Shoes"
                     className="w-full h-[250px] object-cover"
                 />
             </figure>
             <div className="card-body text-left">
-                <h2 className="card-title text-2xl">{data.title}</h2>
-                <p>{data.description}</p>
+                <h2 className="card-title text-2xl">{data?.title}</h2>
+                <p>{data?.description}</p>
                 <StarRatings
-                    rating={data.rating}
+                    rating={data?.rating}
                     numberOfStars={5}
                     name="rating"
                     starRatedColor="#5fbf54"
@@ -23,10 +23,10 @@ const MealCard = ({ data }) => {
                 />
                 <div className="flex justify-between items-center mt-4">
                     <h1 className="text-2xl font-bold text-[#5fbf54]">
-                        {data.price}$
+                        {data?.price}$
                     </h1>
                     <Link
-                        to={`/meals/${data._id}`}
+                        to={`/meals/${data?._id}`}
                         className="btn bg-[#5fbf54] text-white border-none"
                     >
                         View Details
