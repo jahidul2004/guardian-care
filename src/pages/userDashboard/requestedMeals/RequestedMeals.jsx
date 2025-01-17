@@ -1,5 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "../../../context/AuthContext/AuthContext";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const RequestedMeals = () => {
     const { user } = useContext(AuthContext);
@@ -14,6 +16,39 @@ const RequestedMeals = () => {
             .then((res) => res.json())
             .then((data) => setRequestedMeals(data));
     }, []);
+
+    const handleCancel = (_id) => {
+        axios
+            .delete(`http://localhost:3000/mealRequests/${_id}/${user?.email}`)
+            .then((res) => {
+                if (res.status === 200) {
+                    setRequestedMeals(
+                        requestedMeals.filter((meal) => meal._id !== _id)
+                    );
+                }
+                Swal.fire({
+                    title: "Success!",
+                    text: "Request Cancelled successfully!",
+                    icon: "success",
+                    confirmButtonText: "Close",
+                    customClass: {
+                        confirmButton:
+                            "btn bg-[#5fbf54] text-white border-none",
+                    },
+                });
+            })
+            .catch((err) => {
+                Swal.fire({
+                    title: "Oops!",
+                    text: err.message,
+                    icon: "error",
+                    confirmButtonText: "Close",
+                    customClass: {
+                        confirmButton: "btn btn-error text-white border-none",
+                    },
+                });
+            });
+    };
     return (
         <div>
             <h1 className="text-center font-bold text-3xl py-4 mb-10">
@@ -56,7 +91,12 @@ const RequestedMeals = () => {
                                         <span>{meal?.reviewCount || 0}</span>
                                     </td>
                                     <td>
-                                        <button className="btn btn-error text-white border-none">
+                                        <button
+                                            onClick={() => {
+                                                handleCancel(meal?._id);
+                                            }}
+                                            className="btn btn-error text-white border-none"
+                                        >
                                             Cancel
                                         </button>
                                     </td>
