@@ -55,7 +55,7 @@ const RequestedMeals = () => {
                 My requested meals
             </h1>
             <div>
-                <div className="overflow-x-auto">
+                <div className="overflow-x-auto border">
                     <table className="table">
                         {/* head */}
                         <thead>

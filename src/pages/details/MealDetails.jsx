@@ -11,6 +11,7 @@ const MealDetails = () => {
     const [likeCount, setLikeCount] = useState(data.likeCount || 0);
     const [isLiked, setIsLiked] = useState(false);
     const [givenRating, setGivenRating] = useState(1);
+    const [reviews, setReviews] = useState([]);
 
     const [dbUser, setDbUser] = useState(null);
 
@@ -23,6 +24,14 @@ const MealDetails = () => {
                 setDbUser(data);
             });
     }, [user?.email]);
+
+    useEffect(() => {
+        fetch(`http://localhost:3000/reviews/meal/${data?._id}`)
+            .then((res) => res.json())
+            .then((data) => {
+                setReviews(data);
+            });
+    }, []);
 
     const handleRequestMeal = (_id) => {
         if (dbUser?.badge === "bronze") {
@@ -144,29 +153,38 @@ const MealDetails = () => {
 
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 p-5 md:p-10">
-            <div className="h-[400px] w-full">
+            <div className="h-[450px] w-full">
                 <img
                     className="h-full w-full rounded-lg object-cover"
-                    src={data.image}
+                    src={data?.image}
                     alt=""
                 />
             </div>
             <div className="w-full bg-[#f9f9f9] p-5 rounded-lg relative">
-                <h1 className="text-3xl font-bold mb-2">{data.title}</h1>
-                <p className="mb-2">{data.description}</p>
-                <p className="font-semibold">Price: {data.price}$</p>
+                <h1 className="text-3xl font-bold mb-2">{data?.title}</h1>
                 <StarRatings
-                    rating={data.rating}
+                    rating={data?.rating}
                     numberOfStars={5}
                     name="rating"
                     starRatedColor="#5fbf54"
                     starDimension="20px"
                 />
+                <p className="my-2">{data?.description}</p>
+                <p className="font-semibold">Price: {data?.price}$</p>
+                <p className="font-semibold">
+                    Distributor: {data?.distributorName}
+                </p>
+                <h1 className="font-semibold">Ingredients</h1>
+                <ul className="list-disc pl-5 mt-2">
+                    {data?.ingredients.map((ingredient, index) => (
+                        <li key={index}>{ingredient}</li>
+                    ))}
+                </ul>
 
                 <div className="flex items-center gap-4 mt-4">
                     <button
                         onClick={() => {
-                            handleLike(data._id);
+                            handleLike(data?._id);
                         }}
                         disabled={isLiked}
                         className={`btn border-2 ${
@@ -185,7 +203,7 @@ const MealDetails = () => {
 
                     <button
                         onClick={() => {
-                            handleRequestMeal(data._id);
+                            handleRequestMeal(data?._id);
                         }}
                         className="btn bg-[#5fbf54] text-white border-none mt-2"
                     >
@@ -228,6 +246,13 @@ const MealDetails = () => {
                 <p className="absolute bottom-2 right-2 font-bold text-xs">
                     {data.postTime}
                 </p>
+            </div>
+
+            <div className="border p-5 rounded-lg md:col-span-2">
+                <h1 className="text-center font-bold text-3xl py-4 mb-10">
+                    Reviews
+                </h1>
+                <div></div>
             </div>
         </div>
     );
