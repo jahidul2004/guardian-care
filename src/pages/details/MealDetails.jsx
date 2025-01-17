@@ -34,10 +34,14 @@ const MealDetails = () => {
         }
         const request = {
             mealId: _id,
-            userEmail: user.email,
-            userName: user.displayName,
-            userBadge: dbUser.badge,
+            userEmail: user?.email,
+            userName: user?.displayName,
+            userBadge: dbUser?.badge,
             status: "pending",
+            image: data?.image,
+            title: data?.title,
+            likeCount: data?.likeCount,
+            reviewCount: data?.reviewCount,
         };
 
         axios
