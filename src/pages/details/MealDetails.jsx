@@ -5,6 +5,7 @@ import StarRatings from "react-star-ratings";
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "../../context/AuthContext/AuthContext";
 import Swal from "sweetalert2";
+import ReviewCard from "../../components/ReviewCard";
 
 const MealDetails = () => {
     const data = useLoaderData();
@@ -252,7 +253,11 @@ const MealDetails = () => {
                 <h1 className="text-center font-bold text-3xl py-4 mb-10">
                     Reviews
                 </h1>
-                <div></div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {
+                        reviews.map((review) => <ReviewCard key={review._id} data={review} />)
+                    }
+                </div>
             </div>
         </div>
     );
