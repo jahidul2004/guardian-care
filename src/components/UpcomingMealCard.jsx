@@ -16,6 +16,9 @@ const UpcomingMealCard = ({ data }) => {
                     </span>
                 </div>
                 <p>{data?.description}</p>
+                <p className="font-semibold text-[#5fbf54]">
+                    Price: {data?.price}$ (Approx)
+                </p>
             </div>
         </div>
     );
