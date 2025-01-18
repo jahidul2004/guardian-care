@@ -1,7 +1,7 @@
 import { CgProfile } from "react-icons/cg";
 import { GiHotMeal } from "react-icons/gi";
 import { GrUserSettings } from "react-icons/gr";
-import { IoAddCircleOutline } from "react-icons/io5";
+import { IoAddCircleOutline, IoArrowBackSharp } from "react-icons/io5";
 import { LuChefHat } from "react-icons/lu";
 import { MdOutlineReviews, MdOutlineWatchLater } from "react-icons/md";
 import { Link, Outlet } from "react-router-dom";
@@ -74,6 +74,13 @@ const AdminDashboard = () => {
                             Upcoming Meal
                         </Link>
                     </li>
+                    <Link
+                        className="mt-2 btn bg-[#5fbf54] text-white border-none"
+                        to={"/"}
+                    >
+                        <IoArrowBackSharp />
+                        Go to Home
+                    </Link>
                 </ul>
             </div>
         </div>
