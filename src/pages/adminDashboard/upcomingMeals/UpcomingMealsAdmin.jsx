@@ -131,9 +131,9 @@ const UpcomingMealsAdmin = () => {
                             {meals.map((meal, index) => (
                                 <tr key={meal._id}>
                                     <th>{index + 1}</th>
-                                    <td>{meal.title}</td>
-                                    <td>{meal.price}$</td>
-                                    <td>{meal.likeCount || 0}</td>
+                                    <td>{meal?.title}</td>
+                                    <td>{meal?.price}$</td>
+                                    <td>{meal?.likeCount || 0}</td>
                                     <td>
                                         <button
                                             onClick={() =>
