@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const AllReview = () => {
     const [reviews, setReviews] = useState([]);
@@ -50,9 +51,12 @@ const AllReview = () => {
                                     <button className="btn btn-sm btn-error text-white border-none">
                                         Delete
                                     </button>
-                                    <button className="btn btn-sm bg-[#5fbf54] text-white border-none">
+                                    <Link
+                                        to={`/meals/${review.mealId}`}
+                                        className="btn btn-sm bg-[#5fbf54] text-white border-none"
+                                    >
                                         View Meal
-                                    </button>
+                                    </Link>
                                 </th>
                             </tr>
                         ))}
