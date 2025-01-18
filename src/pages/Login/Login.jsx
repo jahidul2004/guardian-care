@@ -4,6 +4,7 @@ import { FcGoogle } from "react-icons/fc";
 import { useContext } from "react";
 import AuthContext from "../../context/AuthContext/AuthContext";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 const Login = () => {
     const { login, setUser } = useContext(AuthContext);
@@ -97,6 +98,13 @@ const Login = () => {
                             <FcGoogle />
                             Login With Google
                         </button>
+
+                        <p className="mt-2">
+                            New Here?{" "}
+                            <Link className="text-[#5fbf54]" to={"/register"}>
+                                Register
+                            </Link>
+                        </p>
                     </div>
                 </form>
             </div>

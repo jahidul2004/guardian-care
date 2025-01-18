@@ -4,6 +4,7 @@ import axios from "axios";
 import { useContext } from "react";
 import AuthContext from "../../context/AuthContext/AuthContext";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 const apiKye = import.meta.env.VITE_IMAGEBB_API_KEY;
 const imgApi = `https://api.imgbb.com/1/upload?key=${apiKye}`;
@@ -151,7 +152,7 @@ const Register = () => {
                             required
                         />
                     </div>
-
+                    <p>Have an account? <Link className="text-[#5fbf54]" to={'/login'}>Login</Link></p>
                     <div className="form-control mt-6">
                         <button className="btn bg-[#5fbf54] text-white border-none">
                             Register
