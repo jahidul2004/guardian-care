@@ -1,4 +1,6 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 const UpcomingMealsAdmin = () => {
     const [meals, setMeals] = useState([]);
@@ -22,11 +24,14 @@ const UpcomingMealsAdmin = () => {
         const title = form.title.value;
         const category = form.category.value;
         const image = form.image.value;
-        const ingredients = form.ingredients.value;
+        const ingredients = form.ingredients.value
+            .split(",")
+            .map((item) => item.trim());
         const description = form.description.value;
-        const price = form.price.value;
+        const price = parseFloat(form.price.value);
         const likeCount = 0;
         const reviewCount = 0;
+        const postTime = new Date().toISOString();
 
         const newUpMeal = {
             title,
@@ -34,12 +39,11 @@ const UpcomingMealsAdmin = () => {
             image,
             ingredients,
             description,
-            price: parseFloat(price),
+            price,
             likeCount,
             reviewCount,
+            postTime,
         };
-
-        console.log("New Meal Data:", newUpMeal);
 
         fetch("http://localhost:3000/upcomingMeals", {
             method: "POST",
@@ -50,11 +54,51 @@ const UpcomingMealsAdmin = () => {
         })
             .then((res) => res.json())
             .then((data) => {
-                setMeals((prevMeals) => [...prevMeals, newUpMeal]);
+                setMeals((prevMeals) => [...prevMeals, data]);
+                Swal.fire({
+                    icon: "success",
+                    title: "Meal Added Successfully",
+                    text: `${data.title} has been added to Upcoming Meals.`,
+                });
                 document.getElementById("my_modal_1").close();
             })
             .catch((error) => {
                 console.error("Error while adding meal:", error);
+            });
+    };
+
+    const handlePublishMeal = (id) => {
+        fetch(`http://localhost:3000/upcomingMeals/${id}`)
+            .then((res) => res.json())
+            .then((meal) => {
+                const { _id, ...mealData } = meal;
+
+                axios
+                    .post("http://localhost:3000/meals", mealData)
+                    .then(() => {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Meal Published Successfully",
+                            text: `${meal.title} has been published.`,
+                        });
+
+                        setMeals((prevMeals) =>
+                            prevMeals.filter((m) => m._id !== id)
+                        );
+
+                        return fetch(
+                            `http://localhost:3000/upcomingMeals/${id}`,
+                            {
+                                method: "DELETE",
+                            }
+                        );
+                    })
+                    .catch((error) => {
+                        console.error("Error while publishing meal:", error);
+                    });
+            })
+            .catch((error) => {
+                console.error("Error while fetching meal:", error);
             });
     };
 
@@ -85,13 +129,18 @@ const UpcomingMealsAdmin = () => {
                         </thead>
                         <tbody>
                             {meals.map((meal, index) => (
-                                <tr key={index}>
+                                <tr key={meal._id}>
                                     <th>{index + 1}</th>
                                     <td>{meal.title}</td>
                                     <td>{meal.price}$</td>
                                     <td>{meal.likeCount || 0}</td>
                                     <td>
-                                        <button className="btn btn-sm bg-[#5fbf54] text-white border-none">
+                                        <button
+                                            onClick={() =>
+                                                handlePublishMeal(meal._id)
+                                            }
+                                            className="btn btn-sm bg-[#5fbf54] text-white border-none"
+                                        >
                                             Publish
                                         </button>
                                     </td>
@@ -143,7 +192,7 @@ const UpcomingMealsAdmin = () => {
                                             Choose a category
                                         </option>
                                         <option>Breakfast</option>
-                                        <option>Launch</option>
+                                        <option>Lunch</option>
                                         <option>Dinner</option>
                                     </select>
                                 </div>
