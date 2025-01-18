@@ -19,6 +19,7 @@ import AddMeal from "../pages/adminDashboard/addMeal/AddMeal";
 import AllMeals from "../pages/adminDashboard/allMeals/AllMeals";
 import AllReview from "../pages/adminDashboard/allReview/AllReview";
 import MealRequests from "../pages/adminDashboard/mealRequests/MealRequests";
+import LoginRegisterPrivate from "./LoginRegisterPrivate";
 
 const router = createBrowserRouter([
     {
@@ -55,11 +56,19 @@ const router = createBrowserRouter([
             },
             {
                 path: "/login",
-                element: <Login></Login>,
+                element: (
+                    <LoginRegisterPrivate>
+                        <Login></Login>
+                    </LoginRegisterPrivate>
+                ),
             },
             {
                 path: "/register",
-                element: <Register></Register>,
+                element: (
+                    <LoginRegisterPrivate>
+                        <Register></Register>
+                    </LoginRegisterPrivate>
+                ),
             },
             {
                 path: "/dashboard/user",
@@ -102,36 +111,36 @@ const router = createBrowserRouter([
     {
         path: "/adminDashboard",
         element: <AdminDashboard></AdminDashboard>,
-        children:[
+        children: [
             {
                 path: "profile",
-                element: <AdminProfile></AdminProfile>
+                element: <AdminProfile></AdminProfile>,
             },
             {
                 path: "manageUser",
-                element: <ManageUser></ManageUser>
+                element: <ManageUser></ManageUser>,
             },
             {
                 path: "addMeal",
-                element: <AddMeal></AddMeal>
+                element: <AddMeal></AddMeal>,
             },
             {
                 path: "allMeal",
-                element: <AllMeals></AllMeals>
+                element: <AllMeals></AllMeals>,
             },
             {
                 path: "allReview",
-                element: <AllReview></AllReview>
+                element: <AllReview></AllReview>,
             },
             {
                 path: "serveMeal",
-                element: <MealRequests></MealRequests>
+                element: <MealRequests></MealRequests>,
             },
             {
                 path: "upcomingMeal",
-                element: <h1>Upcoming Meal</h1>
+                element: <h1>Upcoming Meal</h1>,
             },
-        ]
+        ],
     },
 ]);
 
