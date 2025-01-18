@@ -29,6 +29,9 @@ const AdminDashboard = () => {
                 ></label>
                 <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
                     {/* Sidebar content here */}
+                    <h1 className="pl-2 text-3xl font-bold mb-5 text-[#5fbf54]">
+                        Welcome to admin Dashboard
+                    </h1>
                     <li>
                         <Link to={"profile"}>
                             <CgProfile />
