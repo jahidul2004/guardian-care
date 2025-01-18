@@ -24,27 +24,30 @@ const UserDashboard = () => {
                 <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
                 {/* Sidebar Content */}
                 <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4 font-semibold">
+                    <h1 className="text-3xl font-bold pl-2 mb-4">
+                        Welcome to User Dashboard
+                    </h1>
                     <li>
                         <Link to={"profile"}>
-                            <CgProfile />
+                            <CgProfile className="text-[#5fbf54]" />
                             My Profile
                         </Link>
                     </li>
                     <li>
                         <Link to={"requestedMeal"}>
-                            <GiMeal />
+                            <GiMeal className="text-[#5fbf54]" />
                             Requested Meal
                         </Link>
                     </li>
                     <li>
                         <Link to={"myReview"}>
-                            <MdOutlineReviews />
+                            <MdOutlineReviews className="text-[#5fbf54]" />
                             My Reviews
                         </Link>
                     </li>
                     <li>
                         <Link to={"paymentHistory"}>
-                            <LuBadgeDollarSign />
+                            <LuBadgeDollarSign className="text-[#5fbf54]" />
                             Payment History
                         </Link>
                     </li>
