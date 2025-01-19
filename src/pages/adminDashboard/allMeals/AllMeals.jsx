@@ -1,5 +1,7 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const AllMeals = () => {
     const [meals, setMeals] = useState([]);
@@ -9,6 +11,33 @@ const AllMeals = () => {
             .then((res) => res.json())
             .then((data) => setMeals(data));
     }, []);
+
+    const handleDelete = (id) => {
+        axios
+            .delete(`http://localhost:3000/meals/${id}`)
+            .then((res) => {
+                if (res.status === 200) {
+                    setMeals((prevMeals) =>
+                        prevMeals.filter((meal) => meal._id !== id)
+                    );
+
+                    Swal.fire({
+                        icon: "success",
+                        title: "Success",
+                        text: "Meal deleted successfully",
+                    });
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: "Something went wrong",
+                });
+            });
+    };
+
     return (
         <div className="py-2">
             <h1 className="text-center font-bold text-3xl py-4 mb-10">
@@ -51,7 +80,12 @@ const AllMeals = () => {
                                     <button className="btn btn-sm bg-[#5fbf54] text-white border-none">
                                         Update
                                     </button>
-                                    <button className="btn btn-sm btn-error text-white border-none">
+                                    <button
+                                        onClick={() => {
+                                            handleDelete(meal?._id);
+                                        }}
+                                        className="btn btn-sm btn-error text-white border-none"
+                                    >
                                         Delete
                                     </button>
                                     <Link
