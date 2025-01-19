@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const AllMeals = () => {
     const [meals, setMeals] = useState([]);
@@ -44,7 +45,7 @@ const AllMeals = () => {
                                 <td>{meal?.title}</td>
                                 <td>{meal?.likeCount || 0}</td>
                                 <td>{meal?.reviewCount || 0}</td>
-                                <td>{meal.rating}</td>
+                                <td>{meal?.rating}</td>
 
                                 <th className="flex gap-2">
                                     <button className="btn btn-sm bg-[#5fbf54] text-white border-none">
@@ -53,9 +54,12 @@ const AllMeals = () => {
                                     <button className="btn btn-sm btn-error text-white border-none">
                                         Delete
                                     </button>
-                                    <button className="btn btn-sm bg-[#5fbf54] text-white border-none">
+                                    <Link
+                                        to={`/meals/${meal?._id}`}
+                                        className="btn btn-sm bg-[#5fbf54] text-white border-none"
+                                    >
                                         View Meal
-                                    </button>
+                                    </Link>
                                 </th>
                             </tr>
                         ))}
