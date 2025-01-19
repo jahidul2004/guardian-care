@@ -22,6 +22,7 @@ import MealRequests from "../pages/adminDashboard/mealRequests/MealRequests";
 import LoginRegisterPrivate from "./LoginRegisterPrivate";
 import UpcomingMealsAdmin from "../pages/adminDashboard/upcomingMeals/UpcomingMealsAdmin";
 import Payment from "../pages/payment/Payment";
+import PaymentHistory from "../pages/userDashboard/paymentHistory/PaymentHistory";
 
 const router = createBrowserRouter([
     {
@@ -94,7 +95,7 @@ const router = createBrowserRouter([
                     },
                     {
                         path: "paymentHistory",
-                        element: <h1>Payment History</h1>,
+                        element: <PaymentHistory></PaymentHistory>,
                     },
                 ],
             },
