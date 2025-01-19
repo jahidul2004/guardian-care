@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const MembershipCard = ({ data }) => {
     return (
         <div className="bg-[#eef8ef] p-4 md:p-8 rounded-lg shadow-lg">
@@ -23,9 +25,9 @@ const MembershipCard = ({ data }) => {
                 <h1 className="text-4xl font-bold text-[#5fbf54]">
                     {data.price}$
                 </h1>
-                <button className="btn bg-[#5fbf54] text-white border-none">
+                <Link to={`/payment/${data._id}`} className="btn bg-[#5fbf54] text-white border-none">
                     Join Now
-                </button>
+                </Link>
             </div>
         </div>
     );

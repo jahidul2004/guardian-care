@@ -21,6 +21,7 @@ import AllReview from "../pages/adminDashboard/allReview/AllReview";
 import MealRequests from "../pages/adminDashboard/mealRequests/MealRequests";
 import LoginRegisterPrivate from "./LoginRegisterPrivate";
 import UpcomingMealsAdmin from "../pages/adminDashboard/upcomingMeals/UpcomingMealsAdmin";
+import Payment from "../pages/payment/Payment";
 
 const router = createBrowserRouter([
     {
@@ -107,6 +108,10 @@ const router = createBrowserRouter([
                     return data;
                 },
             },
+            {
+                path: "/payment/:id",
+                element: <Payment></Payment>
+            }
         ],
     },
     {
