@@ -5,6 +5,15 @@ import Swal from "sweetalert2";
 
 const AllMeals = () => {
     const [meals, setMeals] = useState([]);
+    const [selectedMeal, setSelectedMeal] = useState(null);
+    const [updatedData, setUpdatedData] = useState({
+        title: "",
+        description: "",
+        price: "",
+        image: "",
+        category: "",
+        ingredients: "",
+    });
 
     useEffect(() => {
         fetch("http://localhost:3000/meals")
@@ -38,6 +47,60 @@ const AllMeals = () => {
             });
     };
 
+    const openUpdateModal = (meal) => {
+        setSelectedMeal(meal);
+        setUpdatedData({
+            title: meal.title,
+            description: meal.description,
+            price: meal.price,
+            image: meal.image,
+            category: meal.category || "",
+            ingredients: meal.ingredients?.join(", ") || "",
+        });
+        document.getElementById("my_modal_1").showModal();
+    };
+
+    const handleUpdate = () => {
+        const updatedMeal = {
+            ...updatedData,
+            ingredients: updatedData.ingredients
+                .split(",")
+                .map((ingredient) => ingredient.trim()),
+        };
+
+        axios
+            .put(`http://localhost:3000/meals/${selectedMeal._id}`, updatedMeal)
+            .then((res) => {
+                if (res.status === 200) {
+                    setMeals((prevMeals) =>
+                        prevMeals.map((meal) =>
+                            meal._id === selectedMeal._id ? res.data : meal
+                        )
+                    );
+                    Swal.fire({
+                        icon: "success",
+                        title: "Success",
+                        text: "Meal updated successfully",
+                    });
+                    setSelectedMeal(null);
+                    document.getElementById("my_modal_1").close();
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: "Something went wrong",
+                });
+            });
+    };
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setUpdatedData((prevData) => ({ ...prevData, [name]: value }));
+    };
+
     return (
         <div className="py-2">
             <h1 className="text-center font-bold text-3xl py-4 mb-10">
@@ -58,14 +121,14 @@ const AllMeals = () => {
                     </thead>
                     <tbody>
                         {meals.map((meal) => (
-                            <tr>
+                            <tr key={meal._id}>
                                 <td>
                                     <div className="flex items-center gap-3">
                                         <div className="avatar">
                                             <div className="mask mask-squircle h-12 w-12">
                                                 <img
                                                     src={meal?.image}
-                                                    alt="Avatar Tailwind CSS Component"
+                                                    alt="Meal"
                                                 />
                                             </div>
                                         </div>
@@ -77,19 +140,20 @@ const AllMeals = () => {
                                 <td>{meal?.rating}</td>
 
                                 <th className="flex gap-2">
-                                    <button className="btn btn-sm bg-[#5fbf54] text-white border-none">
+                                    <button
+                                        onClick={() => openUpdateModal(meal)}
+                                        className="btn btn-sm bg-[#5fbf54] text-white border-none"
+                                    >
                                         Update
                                     </button>
                                     <button
-                                        onClick={() => {
-                                            handleDelete(meal?._id);
-                                        }}
+                                        onClick={() => handleDelete(meal._id)}
                                         className="btn btn-sm btn-error text-white border-none"
                                     >
                                         Delete
                                     </button>
                                     <Link
-                                        to={`/meals/${meal?._id}`}
+                                        to={`/meals/${meal._id}`}
                                         className="btn btn-sm bg-[#5fbf54] text-white border-none"
                                     >
                                         View Meal
@@ -100,6 +164,92 @@ const AllMeals = () => {
                     </tbody>
                 </table>
             </div>
+
+            {/* Update Modal */}
+            <dialog id="my_modal_1" className="modal">
+                <div className="modal-box">
+                    <h3 className="font-bold text-lg mb-4">Update Meal</h3>
+                    <div className="flex flex-col gap-4">
+                        <label className="label">
+                            <span className="label-text">Title</span>
+                        </label>
+                        <input
+                            type="text"
+                            name="title"
+                            value={updatedData.title}
+                            onChange={handleChange}
+                            className="input input-bordered"
+                        />
+                        <label className="label">
+                            <span className="label-text">Description</span>
+                        </label>
+                        <input
+                            type="text"
+                            name="description"
+                            value={updatedData.description}
+                            onChange={handleChange}
+                            className="input input-bordered"
+                        />
+                        <label className="label">
+                            <span className="label-text">Price</span>
+                        </label>
+                        <input
+                            type="text"
+                            name="price"
+                            value={updatedData.price}
+                            onChange={handleChange}
+                            className="input input-bordered"
+                        />
+                        <label className="label">
+                            <span className="label-text">Image</span>
+                        </label>
+                        <input
+                            type="text"
+                            name="image"
+                            value={updatedData.image}
+                            onChange={handleChange}
+                            className="input input-bordered"
+                        />
+                        <label className="label">
+                            <span className="label-text">Category</span>
+                        </label>
+                        <input
+                            type="text"
+                            name="category"
+                            value={updatedData.category}
+                            onChange={handleChange}
+                            className="input input-bordered"
+                        />
+                        <label className="label">
+                            <span className="label-text">Ingredients</span>
+                        </label>
+                        <input
+                            type="text"
+                            name="ingredients"
+                            value={updatedData.ingredients}
+                            onChange={handleChange}
+                            placeholder="Comma separated ingredients"
+                            className="input input-bordered"
+                        />
+                        <button
+                            onClick={handleUpdate}
+                            className="btn bg-[#5fbf54] text-white border-none mt-4"
+                        >
+                            Update
+                        </button>
+                    </div>
+                    <div className="modal-action">
+                        <button
+                            onClick={() =>
+                                document.getElementById("my_modal_1").close()
+                            }
+                            className="btn btn-error text-white border-none"
+                        >
+                            Close
+                        </button>
+                    </div>
+                </div>
+            </dialog>
         </div>
     );
 };
