@@ -53,7 +53,7 @@ const AllReview = () => {
     return (
         <div className="py-2">
             <h1 className="text-center font-bold text-3xl py-4 mb-10">
-                All Meals
+                All Review
             </h1>
             <div className="overflow-x-auto border">
                 <table className="table">
