@@ -74,7 +74,10 @@ const UpcomingMealsAdmin = () => {
                 const { _id, ...mealData } = meal;
 
                 axios
-                    .post("https://gurdian-care-server.vercel.app/meals", mealData)
+                    .post(
+                        "https://gurdian-care-server.vercel.app/meals",
+                        mealData
+                    )
                     .then(() => {
                         Swal.fire({
                             icon: "success",
@@ -267,6 +270,11 @@ const UpcomingMealsAdmin = () => {
                     </div>
                 </div>
             </dialog>
+            <div className="join">
+                <button className="join-item btn">«</button>
+                <button className="join-item btn">Page 1</button>
+                <button className="join-item btn">»</button>
+            </div>
         </div>
     );
 };
