@@ -3,6 +3,7 @@ import Swal from "sweetalert2";
 
 const ManageUser = () => {
     const [users, setUsers] = useState([]);
+    const [searchTerm, setSearchTerm] = useState("");
 
     useEffect(() => {
         fetch("https://gurdian-care-server.vercel.app/users")
@@ -51,11 +52,28 @@ const ManageUser = () => {
             });
     };
 
+    const filteredUsers = users.filter(
+        (user) =>
+            user?.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            user?.email.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
     return (
         <div>
             <h1 className="text-center font-bold text-3xl py-4 mb-10">
                 Manage Users
             </h1>
+            {/* Search input */}
+            <div className="mb-4">
+                <input
+                    type="text"
+                    placeholder="Search by name or email"
+                    className="input input-bordered w-full"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                />
+            </div>
+
             <div className="overflow-x-auto border">
                 <table className="table">
                     {/* head */}
@@ -70,7 +88,7 @@ const ManageUser = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {users.map((user) => (
+                        {filteredUsers.map((user) => (
                             <tr key={user?._id}>
                                 <td>
                                     <div className="flex items-center gap-3">
