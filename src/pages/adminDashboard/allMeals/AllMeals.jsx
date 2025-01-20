@@ -69,7 +69,10 @@ const AllMeals = () => {
         };
 
         axios
-            .put(`https://gurdian-care-server.vercel.app/meals/${selectedMeal._id}`, updatedMeal)
+            .put(
+                `https://gurdian-care-server.vercel.app/meals/${selectedMeal._id}`,
+                updatedMeal
+            )
             .then((res) => {
                 if (res.status === 200) {
                     setMeals((prevMeals) =>
@@ -250,6 +253,12 @@ const AllMeals = () => {
                     </div>
                 </div>
             </dialog>
+
+            <div className="join">
+                <button className="join-item btn">«</button>
+                <button className="join-item btn">Page 1</button>
+                <button className="join-item btn">»</button>
+            </div>
         </div>
     );
 };
