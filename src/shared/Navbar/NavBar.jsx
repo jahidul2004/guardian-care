@@ -13,7 +13,6 @@ const NavBar = () => {
     const { user, logout } = useContext(AuthContext);
     const [dbUser, setDbUser] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     useEffect(() => {
         if (user?.email) {
@@ -50,30 +49,6 @@ const NavBar = () => {
                     Upcoming Meals
                 </NavLink>
             </li>
-            {user && (
-                <>
-                    <li>
-                        <NavLink
-                            to={
-                                dbUser?.role === "admin"
-                                    ? "/adminDashboard"
-                                    : "/dashboard/user/profile"
-                            }
-                            className="btn bg-[#5fbf54] text-white border-none"
-                        >
-                            Dashboard
-                        </NavLink>
-                    </li>
-                    <li>
-                        <button
-                            onClick={handleLogout}
-                            className="btn btn-error text-white border-none"
-                        >
-                            Logout
-                        </button>
-                    </li>
-                </>
-            )}
         </>
     );
 
@@ -119,33 +94,7 @@ const NavBar = () => {
                 </div>
             </div>
 
-            {/* Hamburger Menu for Small Devices */}
-            <div className="lg:hidden flex items-center gap-3">
-                {!user && !isLoading && (
-                    <Link
-                        to={"/login"}
-                        className="btn bg-[#5fbf54] text-white hover:text-[#5fbf54] text-sm"
-                    >
-                        <IoMdLogIn />
-                        Join With Us
-                    </Link>
-                )}
-                <button
-                    onClick={() => setIsMenuOpen(!isMenuOpen)}
-                    className="text-3xl text-[#5fbf54] focus:outline-none"
-                >
-                    <RiMenuFill />
-                </button>
-                {isMenuOpen && (
-                    <div className="absolute top-16 left-0 w-full bg-white shadow-md z-50">
-                        <ul className="menu menu-vertical px-4 py-2">
-                            {links}
-                        </ul>
-                    </div>
-                )}
-            </div>
-
-            {/* Menu Links for Large Devices */}
+            {/* Menu Links */}
             <div className="hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">{links}</ul>
             </div>
@@ -168,25 +117,18 @@ const NavBar = () => {
                                 <p className="font-semibold text-[#5fbf54] text-center">
                                     {user?.displayName}
                                 </p>
-                                {dbUser?.role === "admin" ? (
-                                    <li>
-                                        <Link
-                                            to={"/adminDashboard"}
-                                            className="btn bg-[#5fbf54] text-white border-none"
-                                        >
-                                            Admin Dashboard
-                                        </Link>
-                                    </li>
-                                ) : (
-                                    <li>
-                                        <Link
-                                            to={"/dashboard/user/profile"}
-                                            className="btn bg-[#5fbf54] text-white border-none"
-                                        >
-                                            User Dashboard
-                                        </Link>
-                                    </li>
-                                )}
+                                <li>
+                                    <Link
+                                        to={
+                                            dbUser?.role === "admin"
+                                                ? "/adminDashboard"
+                                                : "/dashboard/user/profile"
+                                        }
+                                        className="btn bg-[#5fbf54] text-white border-none"
+                                    >
+                                        Dashboard
+                                    </Link>
+                                </li>
                                 <li>
                                     <button
                                         onClick={handleLogout}
