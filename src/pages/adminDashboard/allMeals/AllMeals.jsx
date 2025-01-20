@@ -14,6 +14,7 @@ const AllMeals = () => {
         category: "",
         ingredients: "",
     });
+    const [searchTerm, setSearchTerm] = useState("");
 
     useEffect(() => {
         fetch("https://gurdian-care-server.vercel.app/meals")
@@ -104,11 +105,29 @@ const AllMeals = () => {
         setUpdatedData((prevData) => ({ ...prevData, [name]: value }));
     };
 
+    const filteredMeals = meals.filter(
+        (meal) =>
+            meal?.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            meal?.category?.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
     return (
         <div className="py-2">
             <h1 className="text-center font-bold text-3xl py-4 mb-10">
                 All Meals
             </h1>
+
+            {/* Search input */}
+            <div className="mb-4">
+                <input
+                    type="text"
+                    placeholder="Search by title or category"
+                    className="input input-bordered w-full"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                />
+            </div>
+
             <div className="overflow-x-auto border">
                 <table className="table">
                     {/* head */}
@@ -123,7 +142,7 @@ const AllMeals = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {meals.map((meal) => (
+                        {filteredMeals.map((meal) => (
                             <tr key={meal._id}>
                                 <td>
                                     <div className="flex items-center gap-3">
