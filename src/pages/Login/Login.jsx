@@ -86,32 +86,7 @@ const Login = () => {
                     <div className="form-control mt-6">
                         <button
                             onClick={() => {
-                                googleLogin()
-                                    .then((user) => {
-                                        setUser(user.user);
-                                        Swal.fire({
-                                            title: "Success!",
-                                            text: "Log In successfully!",
-                                            icon: "success",
-                                            confirmButtonText: "Close",
-                                            customClass: {
-                                                confirmButton:
-                                                    "btn bg-[#5fbf54] text-white border-none",
-                                            },
-                                        });
-                                    })
-                                    .catch((error) => {
-                                        Swal.fire({
-                                            title: "Oops!",
-                                            text: error.message,
-                                            icon: "error",
-                                            confirmButtonText: "Close",
-                                            customClass: {
-                                                confirmButton:
-                                                    "btn btn-error text-white border-none",
-                                            },
-                                        });
-                                    });
+                                handleLogin();
                             }}
                             type="submit"
                             className="btn bg-[#5fbf54] text-white border-none"
