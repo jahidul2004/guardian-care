@@ -23,6 +23,7 @@ import LoginRegisterPrivate from "./LoginRegisterPrivate";
 import UpcomingMealsAdmin from "../pages/adminDashboard/upcomingMeals/UpcomingMealsAdmin";
 import Payment from "../pages/payment/Payment";
 import PaymentHistory from "../pages/userDashboard/paymentHistory/PaymentHistory";
+import AdminHome from "../pages/adminDashboard/home/AdminHome";
 
 const router = createBrowserRouter([
     {
@@ -123,6 +124,10 @@ const router = createBrowserRouter([
         path: "/adminDashboard",
         element: <AdminDashboard></AdminDashboard>,
         children: [
+            {
+                path: "/adminDashboard",
+                element:<AdminHome></AdminHome>
+            },
             {
                 path: "profile",
                 element: <AdminProfile></AdminProfile>,
