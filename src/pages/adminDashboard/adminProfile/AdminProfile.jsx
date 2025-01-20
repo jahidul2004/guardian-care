@@ -1,24 +1,36 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
+import { useQuery } from "@tanstack/react-query";
 import AuthContext from "../../../context/AuthContext/AuthContext";
+
+const fetchUserData = async (email) => {
+    const response = await fetch(`http://localhost:3000/user/${email}`);
+    if (!response.ok) {
+        throw new Error("Network response was not ok");
+    }
+    return response.json();
+};
 
 const AdminProfile = () => {
     const { user } = useContext(AuthContext);
 
-    const [dbUser, setDbUser] = useState(null);
-    console.log("Db user is:", dbUser);
+    const {
+        data: dbUser,
+        error,
+        isLoading,
+    } = useQuery({
+        queryKey: ["user", user?.email],
+        queryFn: () => fetchUserData(user?.email),
+        enabled: !!user?.email,
+    });
 
-    useEffect(() => {
-        if (user?.email) {
-            fetch(`http://localhost:3000/user/${user.email}`)
-                .then((res) => res.json())
-                .then((data) => {
-                    setDbUser(data);
-                })
-                .catch((error) => {
-                    console.error("Error fetching user data:", error);
-                });
-        }
-    }, [user?.email]);
+    if (isLoading) {
+        return <p>Loading...</p>;
+    }
+
+    if (error) {
+        return <p>Error loading user data: {error.message}</p>;
+    }
+
     return (
         <div className="flex flex-col items-center space-y-4 bg-[#f1f1f1] p-4 md:p-10 rounded-lg">
             <img
