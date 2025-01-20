@@ -9,7 +9,7 @@ const MyProfile = () => {
     const email = user?.email;
     console.log(email);
     useEffect(() => {
-        fetch(`http://localhost:3000/user/${email}`)
+        fetch(`https://gurdian-care-server.vercel.app/user/${email}`)
             .then((res) => res.json())
             .then((data) => {
                 setDbUser(data);

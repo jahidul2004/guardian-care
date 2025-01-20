@@ -9,7 +9,7 @@ const AdminRoute = ({ children }) => {
 
     useEffect(() => {
         if (user?.email) {
-            fetch(`http://localhost:3000/user/${user.email}`)
+            fetch(`https://gurdian-care-server.vercel.app/user/${user.email}`)
                 .then((res) => res.json())
                 .then((data) => {
                     if (data?.role === "admin") {

@@ -16,14 +16,14 @@ const AllMeals = () => {
     });
 
     useEffect(() => {
-        fetch("http://localhost:3000/meals")
+        fetch("https://gurdian-care-server.vercel.app/meals")
             .then((res) => res.json())
             .then((data) => setMeals(data));
     }, []);
 
     const handleDelete = (id) => {
         axios
-            .delete(`http://localhost:3000/meals/${id}`)
+            .delete(`https://gurdian-care-server.vercel.app/meals/${id}`)
             .then((res) => {
                 if (res.status === 200) {
                     setMeals((prevMeals) =>
@@ -69,7 +69,7 @@ const AllMeals = () => {
         };
 
         axios
-            .put(`http://localhost:3000/meals/${selectedMeal._id}`, updatedMeal)
+            .put(`https://gurdian-care-server.vercel.app/meals/${selectedMeal._id}`, updatedMeal)
             .then((res) => {
                 if (res.status === 200) {
                     setMeals((prevMeals) =>

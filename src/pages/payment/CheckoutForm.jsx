@@ -19,7 +19,7 @@ const CheckoutForm = () => {
 
     // Fetch price
     useEffect(() => {
-        fetch(`http://localhost:3000/membership/${id}`)
+        fetch(`https://gurdian-care-server.vercel.app/membership/${id}`)
             .then((res) => res.json())
             .then((data) => {
                 setPrice(data.price);
@@ -32,7 +32,7 @@ const CheckoutForm = () => {
     useEffect(() => {
         if (price > 0) {
             axios
-                .post("http://localhost:3000/create-payment-intent", { price })
+                .post("https://gurdian-care-server.vercel.app/create-payment-intent", { price })
                 .then((res) => {
                     setClientSecret(res.data.clientSecret);
                     console.log("Client Secret:", res.data.clientSecret);
@@ -114,7 +114,7 @@ const CheckoutForm = () => {
             }
 
             axios
-                .post("http://localhost:3000/transactions", newTransaction)
+                .post("https://gurdian-care-server.vercel.app/transactions", newTransaction)
                 .then((res) => {
                     console.log("Transaction saved:");
                     navigate("/");

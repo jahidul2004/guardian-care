@@ -11,7 +11,7 @@ const MealRequests = () => {
     }, []);
 
     const fetchMealRequests = () => {
-        fetch("http://localhost:3000/mealRequests")
+        fetch("https://gurdian-care-server.vercel.app/mealRequests")
             .then((res) => res.json())
             .then((data) => setMealRequests(data))
             .catch((err) => {
@@ -22,7 +22,7 @@ const MealRequests = () => {
     // Handle serving meal
     const handleServe = (id) => {
         axios
-            .put(`http://localhost:3000/mealRequests/${id}`, {
+            .put(`https://gurdian-care-server.vercel.app/mealRequests/${id}`, {
                 status: "delivered",
             })
             .then((response) => {

@@ -32,7 +32,7 @@ const AddMeal = () => {
         };
 
         axios
-            .post("http://localhost:3000/meals", newMeal)
+            .post("https://gurdian-care-server.vercel.app/meals", newMeal)
             .then((res) => {
                 Swal.fire({
                     title: "Success!",

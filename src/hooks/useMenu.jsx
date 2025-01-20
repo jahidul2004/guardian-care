@@ -4,7 +4,7 @@ const useMenu = () => {
     const [menu, setMenu] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:3000/meals")
+        fetch("https://gurdian-care-server.vercel.app/meals")
             .then((res) => res.json())
             .then((data) => setMenu(data));
     }, []);

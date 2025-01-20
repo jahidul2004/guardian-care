@@ -8,7 +8,7 @@ const MyReviews = () => {
     console.log(reviews);
 
     useEffect(() => {
-        fetch(`http://localhost:3000/reviews/${user?.email}`)
+        fetch(`https://gurdian-care-server.vercel.app/reviews/${user?.email}`)
             .then((res) => res.json())
             .then((data) => {
                 setReviews(data);

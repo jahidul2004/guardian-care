@@ -6,7 +6,7 @@ const PaymentHistory = () => {
     const [transactions, setTransactions] = useState([]);
 
     useEffect(() => {
-        fetch(`http://localhost:3000/transactions/${user?.email}`)
+        fetch(`https://gurdian-care-server.vercel.app/transactions/${user?.email}`)
             .then((res) => res.json())
             .then((data) => {
                 setTransactions(data);

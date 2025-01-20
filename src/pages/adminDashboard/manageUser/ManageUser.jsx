@@ -5,14 +5,14 @@ const ManageUser = () => {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:3000/users")
+        fetch("https://gurdian-care-server.vercel.app/users")
             .then((res) => res.json())
             .then((data) => setUsers(data))
             .catch((error) => console.error("Failed to fetch users:", error));
     }, []);
 
     const handleMakeAdmin = (id) => {
-        fetch(`http://localhost:3000/users/${id}`, {
+        fetch(`https://gurdian-care-server.vercel.app/users/${id}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",

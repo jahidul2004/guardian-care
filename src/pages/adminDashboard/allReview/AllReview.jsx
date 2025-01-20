@@ -6,7 +6,7 @@ const AllReview = () => {
     const [reviews, setReviews] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:3000/reviews")
+        fetch("https://gurdian-care-server.vercel.app/reviews")
             .then((res) => res.json())
             .then((data) => setReviews(data));
     }, []);
@@ -22,7 +22,7 @@ const AllReview = () => {
             confirmButtonText: "Yes, delete it!",
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:3000/reviews/${id}`, {
+                fetch(`https://gurdian-care-server.vercel.app/reviews/${id}`, {
                     method: "DELETE",
                 })
                     .then((res) => res.json())

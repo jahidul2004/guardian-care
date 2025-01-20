@@ -6,7 +6,7 @@ const UpcomingMealsAdmin = () => {
     const [meals, setMeals] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:3000/upcomingMeals")
+        fetch("https://gurdian-care-server.vercel.app/upcomingMeals")
             .then((res) => res.json())
             .then((data) => {
                 setMeals(data);
@@ -45,7 +45,7 @@ const UpcomingMealsAdmin = () => {
             postTime,
         };
 
-        fetch("http://localhost:3000/upcomingMeals", {
+        fetch("https://gurdian-care-server.vercel.app/upcomingMeals", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -68,13 +68,13 @@ const UpcomingMealsAdmin = () => {
     };
 
     const handlePublishMeal = (id) => {
-        fetch(`http://localhost:3000/upcomingMeals/${id}`)
+        fetch(`https://gurdian-care-server.vercel.app/upcomingMeals/${id}`)
             .then((res) => res.json())
             .then((meal) => {
                 const { _id, ...mealData } = meal;
 
                 axios
-                    .post("http://localhost:3000/meals", mealData)
+                    .post("https://gurdian-care-server.vercel.app/meals", mealData)
                     .then(() => {
                         Swal.fire({
                             icon: "success",
@@ -87,7 +87,7 @@ const UpcomingMealsAdmin = () => {
                         );
 
                         return fetch(
-                            `http://localhost:3000/upcomingMeals/${id}`,
+                            `https://gurdian-care-server.vercel.app/upcomingMeals/${id}`,
                             {
                                 method: "DELETE",
                             }

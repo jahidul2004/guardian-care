@@ -4,7 +4,7 @@ const AdminHome = () => {
     const { data, error, isLoading } = useQuery({
         queryKey: ["dashboard"],
         queryFn: () =>
-            fetch("http://localhost:3000/dashboard")
+            fetch("https://gurdian-care-server.vercel.app/dashboard")
                 .then((res) => res.json())
                 .catch((err) => {
                     console.error(err);

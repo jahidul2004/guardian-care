@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import AuthContext from "../../../context/AuthContext/AuthContext";
 
 const fetchUserData = async (email) => {
-    const response = await fetch(`http://localhost:3000/user/${email}`);
+    const response = await fetch(`https://gurdian-care-server.vercel.app/user/${email}`);
     if (!response.ok) {
         throw new Error("Network response was not ok");
     }

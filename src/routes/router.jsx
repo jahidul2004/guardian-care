@@ -43,7 +43,7 @@ const router = createBrowserRouter([
                 ),
                 loader: async ({ params }) => {
                     const data = await fetch(
-                        `http://localhost:3000/meals/${params.id}`
+                        `https://gurdian-care-server.vercel.app/meals/${params.id}`
                     ).then((res) => res.json());
                     return data;
                 },
@@ -53,7 +53,7 @@ const router = createBrowserRouter([
                 element: <Meals></Meals>,
                 loader: async () => {
                     const data = await fetch(
-                        "http://localhost:3000/meals"
+                        "https://gurdian-care-server.vercel.app/meals"
                     ).then((res) => res.json());
                     return data;
                 },
@@ -105,7 +105,7 @@ const router = createBrowserRouter([
                 element: <UpcomingMeals></UpcomingMeals>,
                 loader: async () => {
                     const data = await fetch(
-                        "http://localhost:3000/upcomingMeals"
+                        "https://gurdian-care-server.vercel.app/upcomingMeals"
                     ).then((res) => res.json());
                     return data;
                 },

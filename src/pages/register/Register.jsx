@@ -53,7 +53,7 @@ const Register = () => {
                     newUser.badge = "bronze";
 
                     axios
-                        .post("http://localhost:3000/users", newUser)
+                        .post("https://gurdian-care-server.vercel.app/users", newUser)
                         .then((res) => {
                             Swal.fire({
                                 title: "Success!",

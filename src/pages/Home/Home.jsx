@@ -11,7 +11,7 @@ const Home = () => {
     const { user } = useContext(AuthContext);
 
     useEffect(() => {
-        fetch(`http://localhost:3000/transactions/${user?.email}`)
+        fetch(`https://gurdian-care-server.vercel.app/transactions/${user?.email}`)
             .then((res) => res.json())
             .then((data) => {
                 const maxAmountObject = data.reduce((max, current) => {
@@ -31,7 +31,7 @@ const Home = () => {
     }, [user]);
 
     axios
-        .patch(`http://localhost:3000/users/badge/${user?.email}`, {
+        .patch(`https://gurdian-care-server.vercel.app/users/badge/${user?.email}`, {
             badge: givenBadge,
         })
         .then((res) => {

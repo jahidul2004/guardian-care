@@ -4,7 +4,7 @@ import MembershipCard from "../../components/MembershipCard";
 const Membership = () => {
     const [membership, setMembership] = useState([]);
     useEffect(() => {
-        fetch("http://localhost:3000/memberships")
+        fetch("https://gurdian-care-server.vercel.app/memberships")
             .then((res) => res.json())
             .then((data) => setMembership(data));
     }, []);

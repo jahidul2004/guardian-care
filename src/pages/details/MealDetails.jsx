@@ -19,7 +19,7 @@ const MealDetails = () => {
     const { user } = useContext(AuthContext);
 
     useEffect(() => {
-        fetch(`http://localhost:3000/user/${user?.email}`)
+        fetch(`https://gurdian-care-server.vercel.app/user/${user?.email}`)
             .then((res) => res.json())
             .then((data) => {
                 setDbUser(data);
@@ -27,7 +27,7 @@ const MealDetails = () => {
     }, [user?.email]);
 
     useEffect(() => {
-        fetch(`http://localhost:3000/reviews/meal/${data?._id}`)
+        fetch(`https://gurdian-care-server.vercel.app/reviews/meal/${data?._id}`)
             .then((res) => res.json())
             .then((data) => {
                 setReviews(data);
@@ -56,7 +56,7 @@ const MealDetails = () => {
         };
 
         axios
-            .post("http://localhost:3000/mealRequests", request)
+            .post("https://gurdian-care-server.vercel.app/mealRequests", request)
             .then((res) => {
                 Swal.fire({
                     icon: "success",
@@ -91,7 +91,7 @@ const MealDetails = () => {
         }
 
         axios
-            .put(`http://localhost:3000/meals/${_id}`, {
+            .put(`https://gurdian-care-server.vercel.app/meals/${_id}`, {
                 likeCount: likeCount + 1,
             })
             .then((res) => {
@@ -135,7 +135,7 @@ const MealDetails = () => {
         };
 
         axios
-            .post("http://localhost:3000/reviews", newReview)
+            .post("https://gurdian-care-server.vercel.app/reviews", newReview)
             .then((res) => {
                 Swal.fire({
                     icon: "success",
