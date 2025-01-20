@@ -51,6 +51,9 @@ const UserDashboard = () => {
                             Payment History
                         </Link>
                     </li>
+                    <Link className="mt-4 btn bg-[#5fbf54] text-white" to={"/"}>
+                        Go to Home
+                    </Link>
                 </ul>
             </div>
         </div>
