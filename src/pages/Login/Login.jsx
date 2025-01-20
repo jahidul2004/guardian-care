@@ -5,9 +5,10 @@ import { useContext } from "react";
 import AuthContext from "../../context/AuthContext/AuthContext";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const Login = () => {
-    const { login, setUser } = useContext(AuthContext);
+    const { login, setUser, googleLogin } = useContext(AuthContext);
 
     const handleLogin = (e) => {
         e.preventDefault();
@@ -42,6 +43,7 @@ const Login = () => {
                 form.reset();
             });
     };
+
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 p-5 md:p-10">
             <div className="order-2 md:order-1 card bg-base-100 w-full md:w-[70%] shrink-0 shadow-2xl mx-auto">
@@ -83,6 +85,34 @@ const Login = () => {
                     </div>
                     <div className="form-control mt-6">
                         <button
+                            onClick={() => {
+                                googleLogin()
+                                    .then((user) => {
+                                        setUser(user.user);
+                                        Swal.fire({
+                                            title: "Success!",
+                                            text: "Log In successfully!",
+                                            icon: "success",
+                                            confirmButtonText: "Close",
+                                            customClass: {
+                                                confirmButton:
+                                                    "btn bg-[#5fbf54] text-white border-none",
+                                            },
+                                        });
+                                    })
+                                    .catch((error) => {
+                                        Swal.fire({
+                                            title: "Oops!",
+                                            text: error.message,
+                                            icon: "error",
+                                            confirmButtonText: "Close",
+                                            customClass: {
+                                                confirmButton:
+                                                    "btn btn-error text-white border-none",
+                                            },
+                                        });
+                                    });
+                            }}
                             type="submit"
                             className="btn bg-[#5fbf54] text-white border-none"
                         >
@@ -92,6 +122,54 @@ const Login = () => {
                         <span className="text-center">or</span>
                         <br />
                         <button
+                            onClick={() => {
+                                googleLogin()
+                                    .then((user) => {
+                                        setUser(user.user);
+
+                                        const newUser = {
+                                            name: user.user.displayName,
+                                            email: user.user.email,
+                                            password: "google",
+                                            photoURL: user.user.photoURL,
+                                            role: "user",
+                                            badge: "bronze",
+                                        };
+
+                                        axios
+                                            .post(
+                                                "https://gurdian-care-server.vercel.app/users",
+                                                newUser
+                                            )
+                                            .then((res) => {
+                                                Swal.fire({
+                                                    title: "Success!",
+                                                    text: "Log In successfully!",
+                                                    icon: "success",
+                                                    confirmButtonText: "Close",
+                                                    customClass: {
+                                                        confirmButton:
+                                                            "btn bg-[#5fbf54] text-white border-none",
+                                                    },
+                                                });
+                                            })
+                                            .catch((error) => {
+                                                console.error(error);
+                                            });
+                                    })
+                                    .catch((error) => {
+                                        Swal.fire({
+                                            title: "Oops!",
+                                            text: error.message,
+                                            icon: "error",
+                                            confirmButtonText: "Close",
+                                            customClass: {
+                                                confirmButton:
+                                                    "btn btn-error text-white border-none",
+                                            },
+                                        });
+                                    });
+                            }}
                             type="button"
                             className="btn bg-[#5fbf54] text-white border-none"
                         >

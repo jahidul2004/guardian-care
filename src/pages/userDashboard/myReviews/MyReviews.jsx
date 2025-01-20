@@ -5,7 +5,7 @@ const MyReviews = () => {
     const { user } = useContext(AuthContext);
     const [reviews, setReviews] = useState([]);
 
-    console.log(reviews);
+    // console.log(reviews);
 
     useEffect(() => {
         fetch(`https://gurdian-care-server.vercel.app/reviews/${user?.email}`)

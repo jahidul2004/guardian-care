@@ -32,10 +32,12 @@ const CheckoutForm = () => {
     useEffect(() => {
         if (price > 0) {
             axios
-                .post("https://gurdian-care-server.vercel.app/create-payment-intent", { price })
+                .post(
+                    "https://gurdian-care-server.vercel.app/create-payment-intent",
+                    { price }
+                )
                 .then((res) => {
                     setClientSecret(res.data.clientSecret);
-                    console.log("Client Secret:", res.data.clientSecret);
                 })
                 .catch((error) =>
                     console.error("Error creating payment intent:", error)
@@ -114,9 +116,12 @@ const CheckoutForm = () => {
             }
 
             axios
-                .post("https://gurdian-care-server.vercel.app/transactions", newTransaction)
+                .post(
+                    "https://gurdian-care-server.vercel.app/transactions",
+                    newTransaction
+                )
                 .then((res) => {
-                    console.log("Transaction saved:");
+                    // console.log("Transaction saved:");
                     navigate("/");
                 })
                 .catch((error) => {

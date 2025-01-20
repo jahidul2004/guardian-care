@@ -95,7 +95,7 @@ const MealDetails = () => {
                 likeCount: likeCount + 1,
             })
             .then((res) => {
-                console.log("Server updated:", res.data);
+                // console.log("Server updated:", res.data);
             })
             .catch((err) => {
                 console.error(err);

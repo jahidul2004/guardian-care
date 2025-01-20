@@ -8,18 +8,22 @@ const RequestedMeals = () => {
 
     const [requestedMeals, setRequestedMeals] = useState([]);
 
-    console.log(requestedMeals);
+    // console.log(requestedMeals);
 
-    console.log("req", requestedMeals);
+    // console.log("req", requestedMeals);
     useEffect(() => {
-        fetch(`https://gurdian-care-server.vercel.app/mealRequests/${user?.email}`)
+        fetch(
+            `https://gurdian-care-server.vercel.app/mealRequests/${user?.email}`
+        )
             .then((res) => res.json())
             .then((data) => setRequestedMeals(data));
     }, []);
 
     const handleCancel = (_id) => {
         axios
-            .delete(`https://gurdian-care-server.vercel.app/mealRequests/${_id}/${user?.email}`)
+            .delete(
+                `https://gurdian-care-server.vercel.app/mealRequests/${_id}/${user?.email}`
+            )
             .then((res) => {
                 if (res.status === 200) {
                     setRequestedMeals(

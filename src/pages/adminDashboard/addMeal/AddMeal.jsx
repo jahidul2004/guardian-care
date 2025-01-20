@@ -41,7 +41,6 @@ const AddMeal = () => {
                     confirmButtonText: "Close",
                 });
                 form.reset();
-                console.log(res.data);
             })
             .catch((error) => {
                 Swal.fire({

@@ -41,7 +41,7 @@ const Register = () => {
                 .then((user) => {
                     updateUser(name, imageUrl)
                         .then(() => {
-                            console.log("User registered successfully!");
+                            // console.log("User registered successfully!");
                         })
                         .catch((error) => {
                             console.error("User update failed:", error);

@@ -10,7 +10,7 @@ const PaymentHistory = () => {
             .then((res) => res.json())
             .then((data) => {
                 setTransactions(data);
-                console.log(data);
+                // console.log(data);
             })
             .catch((error) =>
                 console.error("Failed to fetch transactions:", error)
