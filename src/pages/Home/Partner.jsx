@@ -7,17 +7,38 @@ const Partner = () => {
     const settings = {
         infinite: true,
         speed: 500,
-        slidesToShow: 5,
+        slidesToShow: 4,
         slidesToScroll: 1,
         autoplay: true,
         autoplaySpeed: 2000,
         arrows: false,
         centerMode: true,
         centerPadding: "0",
+
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 4,
+                },
+            },
+            {
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 2,
+                },
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 1,
+                },
+            },
+        ],
     };
 
     return (
-        <div className="w-[95%] mx-auto rounded py-16 bg-gray-100 text-center">
+        <div className="w-[95%] mx-auto rounded py-16 bg-[#eef8ef] text-center">
             <h1 className="text-4xl font-semibold mb-8">Meet Our Partners</h1>
             <div className="max-w-6xl mx-auto mt-5">
                 <Slider {...settings}>
