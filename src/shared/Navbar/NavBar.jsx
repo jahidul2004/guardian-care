@@ -80,10 +80,10 @@ const NavBar = () => {
     };
 
     return (
-        <div className="navbar bg-base-100 shadow-md flex justify-between items-center p-2">
+        <div className="sticky top-0 z-10 navbar bg-base-100 shadow-md flex justify-between items-center p-2">
             {/* Logo Section */}
             <div className="flex items-center gap-2">
-                <img className="w-[80px] h-[80px]" src={logo} alt="" />
+                <img className="w-[60px] h-[60px]" src={logo} alt="" />
                 <div className="flex flex-col">
                     <a className="text-2xl md:text-3xl font-bold">
                         Guardian <span className="text-[#5fbf54]">Care</span>

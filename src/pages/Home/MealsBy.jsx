@@ -10,7 +10,7 @@ const MealsBy = () => {
     const [menu] = useMenu();
 
     const breakfast = menu.filter((item) => item.category === "Breakfast");
-    const lunch = menu.filter((item) => item.category === "Lunch");
+    const lunch = menu.filter((item) => item.category === "Launch");
     const dinner = menu.filter((item) => item.category === "Dinner");
     const allMeals = menu;
 
