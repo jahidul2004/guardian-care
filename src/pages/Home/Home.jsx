@@ -5,6 +5,7 @@ import MealsBy from "./MealsBy";
 import Membership from "./Membership";
 import AuthContext from "../../context/AuthContext/AuthContext";
 import axios from "axios";
+import NewsLetter from "./NewsLetter";
 
 const Home = () => {
     const [givenBadge, setGivenBadge] = useState("");
@@ -58,6 +59,10 @@ const Home = () => {
             {/* Membership */}
             <Membership></Membership>
             {/* Membership end */}
+
+            {/* Newsletter */}
+            <NewsLetter></NewsLetter>
+            {/* Newsletter end */}
         </div>
     );
 };
