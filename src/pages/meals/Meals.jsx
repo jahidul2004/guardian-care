@@ -31,18 +31,23 @@ const Meals = () => {
 
     return (
         <div className="p-5 md:p-10">
-            <h1 className="text-center font-bold text-3xl py-4 mb-10">Meals</h1>
+            <h1 className="text-center font-bold text-3xl md:text-4xl py-4 text-[#5fbf54]">
+                Meals
+            </h1>
+            <p className="text-center mb-10">
+                We provide best and quality full meals ever.
+            </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 bg-[#eef8ef] p-4 rounded">
                 <input
                     type="text"
                     placeholder="Search by meal title..."
                     value={searchText}
                     onChange={(e) => setSearchText(e.target.value)}
-                    className="input input-bordered w-full"
+                    className="input input-bordered w-full bg-transparent "
                 />
                 <select
-                    className="select select-bordered w-full"
+                    className="select select-bordered w-full bg-transparent"
                     value={categoryFilter}
                     onChange={(e) => setCategoryFilter(e.target.value)}
                 >
@@ -54,7 +59,7 @@ const Meals = () => {
                     ))}
                 </select>
                 <select
-                    className="select select-bordered w-full"
+                    className="select select-bordered w-full bg-transparent"
                     value={sortOrder}
                     onChange={(e) => setSortOrder(e.target.value)}
                 >
