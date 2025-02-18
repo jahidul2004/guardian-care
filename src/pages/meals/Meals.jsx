@@ -6,16 +6,26 @@ const Meals = () => {
     const meals = useLoaderData();
     const [searchText, setSearchText] = useState("");
     const [categoryFilter, setCategoryFilter] = useState("");
+    const [sortOrder, setSortOrder] = useState("");
 
-    const filteredMeals = meals.filter((meal) => {
-        const isSearchMatch = meal.title
-            .toLowerCase()
-            .includes(searchText.toLowerCase());
-        const isCategoryMatch = categoryFilter
-            ? meal.category === categoryFilter
-            : true;
-        return isSearchMatch && isCategoryMatch;
-    });
+    const filteredMeals = meals
+        .filter((meal) => {
+            const isSearchMatch = meal.title
+                .toLowerCase()
+                .includes(searchText.toLowerCase());
+            const isCategoryMatch = categoryFilter
+                ? meal.category === categoryFilter
+                : true;
+            return isSearchMatch && isCategoryMatch;
+        })
+        .sort((a, b) => {
+            if (sortOrder === "asc") {
+                return a.price - b.price;
+            } else if (sortOrder === "desc") {
+                return b.price - a.price;
+            }
+            return 0;
+        });
 
     const categories = [...new Set(meals.map((meal) => meal.category))];
 
@@ -23,16 +33,16 @@ const Meals = () => {
         <div className="p-5 md:p-10">
             <h1 className="text-center font-bold text-3xl py-4 mb-10">Meals</h1>
 
-            <div className="flex flex-col md:flex-row gap-4 mb-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
                 <input
                     type="text"
                     placeholder="Search by meal title..."
                     value={searchText}
                     onChange={(e) => setSearchText(e.target.value)}
-                    className="input input-bordered w-full md:w-1/2"
+                    className="input input-bordered w-full"
                 />
                 <select
-                    className="select select-bordered w-full md:w-1/3"
+                    className="select select-bordered w-full"
                     value={categoryFilter}
                     onChange={(e) => setCategoryFilter(e.target.value)}
                 >
@@ -42,6 +52,15 @@ const Meals = () => {
                             {category}
                         </option>
                     ))}
+                </select>
+                <select
+                    className="select select-bordered w-full"
+                    value={sortOrder}
+                    onChange={(e) => setSortOrder(e.target.value)}
+                >
+                    <option value="">Sort by Price</option>
+                    <option value="asc">Price: Low to High</option>
+                    <option value="desc">Price: High to Low</option>
                 </select>
             </div>
 
