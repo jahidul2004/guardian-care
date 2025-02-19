@@ -24,6 +24,7 @@ import UpcomingMealsAdmin from "../pages/adminDashboard/upcomingMeals/UpcomingMe
 import Payment from "../pages/payment/Payment";
 import PaymentHistory from "../pages/userDashboard/paymentHistory/PaymentHistory";
 import AdminHome from "../pages/adminDashboard/home/AdminHome";
+import UserDashboardHome from "../pages/userDashboard/userDashboardHome/UserDashboardHome";
 
 const router = createBrowserRouter([
     {
@@ -82,6 +83,10 @@ const router = createBrowserRouter([
                     </PrivateRoute>
                 ),
                 children: [
+                    {
+                        path:"/dashboard/user",
+                        element:<UserDashboardHome></UserDashboardHome>
+                    },
                     {
                         path: "profile",
                         element: <MyProfile></MyProfile>,
