@@ -8,6 +8,7 @@ import axios from "axios";
 import NewsLetter from "./NewsLetter";
 import Partner from "./Partner";
 import Reviews from "./Reviews";
+import FAQ from "./FAQ";
 
 const Home = () => {
     const [givenBadge, setGivenBadge] = useState("");
@@ -73,6 +74,10 @@ const Home = () => {
             {/* Reviews */}
             <Reviews></Reviews>
             {/* Reviews end */}
+
+            {/* Frequently Asked Question */}
+            <FAQ></FAQ>
+            {/* Frequently Asked Question end */}
         </div>
     );
 };
