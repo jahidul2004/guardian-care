@@ -122,7 +122,7 @@ const NavBar = () => {
                                         to={
                                             dbUser?.role === "admin"
                                                 ? "/adminDashboard"
-                                                : "/dashboard"
+                                                : "/dashboard/user"
                                         }
                                         className="btn bg-[#5fbf54] text-white border-none"
                                     >
