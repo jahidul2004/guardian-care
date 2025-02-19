@@ -10,7 +10,12 @@ const UserDashboardHome = () => {
     return (
         <div className="grid grid-cols-1 md:grid-cols-2">
             <div className="bg-[#eef8ef] h-[400px] w-[600px]">
-                
+                <LineChart width={600} height={400} data={data}>
+                    <Line type="monotone" dataKey="price" stroke="#8884d8" />
+                    <CartesianGrid stroke="#ccc" />
+                    <XAxis dataKey="name" />
+                    <YAxis />
+                </LineChart>
             </div>
             <div></div>
         </div>
