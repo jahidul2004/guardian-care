@@ -25,6 +25,7 @@ import Payment from "../pages/payment/Payment";
 import PaymentHistory from "../pages/userDashboard/paymentHistory/PaymentHistory";
 import AdminHome from "../pages/adminDashboard/home/AdminHome";
 import UserDashboardHome from "../pages/userDashboard/userDashboardHome/UserDashboardHome";
+import ErrorPage from "../pages/errorPage/ErrorPage";
 
 const router = createBrowserRouter([
     {
@@ -163,6 +164,10 @@ const router = createBrowserRouter([
             },
         ],
     },
+    {
+        path: "*",
+        element: <ErrorPage></ErrorPage>
+    }
 ]);
 
 export default router;
