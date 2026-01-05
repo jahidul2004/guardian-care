@@ -2,33 +2,29 @@ import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { FaStar, FaQuoteLeft } from "react-icons/fa"; // react-icons প্যাকেজটি থাকতে হবে
 
 const Reviews = () => {
     const settings = {
+        dots: true, // নিচে ডট নেভিগেশন যোগ করেছি
         infinite: true,
-        speed: 500,
+        speed: 800,
         autoplay: true,
-        autoplaySpeed: 3000,
+        autoplaySpeed: 4000,
         arrows: false,
-        centerMode: true,
-        centerPadding: "0",
-        slidesToShow: 3, // Default for large screens
+        slidesToShow: 3,
+        slidesToScroll: 1,
 
+        // Responsive settings
         responsive: [
             {
-                breakpoint: 1024, // Large devices (lg)
-                settings: {
-                    slidesToShow: 3,
-                },
-            },
-            {
-                breakpoint: 768, // Medium devices (md)
+                breakpoint: 1024,
                 settings: {
                     slidesToShow: 2,
                 },
             },
             {
-                breakpoint: 480, // Small devices (sm)
+                breakpoint: 640,
                 settings: {
                     slidesToShow: 1,
                 },
@@ -40,69 +36,105 @@ const Reviews = () => {
         {
             id: 1,
             name: "John Doe",
-            image: "https://randomuser.me/api/portraits/men/1.jpg",
+            image: "https://randomuser.me/api/portraits/men/32.jpg",
             rating: 5,
-            text: "Great experience! Highly recommended.",
+            text: "Guardian Care provided exceptional service for my father. The staff is incredibly professional and kind.",
         },
         {
             id: 2,
             name: "Jane Smith",
-            image: "https://randomuser.me/api/portraits/women/2.jpg",
+            image: "https://randomuser.me/api/portraits/women/44.jpg",
             rating: 4,
-            text: "Very professional and efficient service.",
+            text: "Very clean environment and healthy meals. I really appreciate their dedication to hygiene.",
         },
         {
             id: 3,
             name: "Michael Johnson",
-            image: "https://randomuser.me/api/portraits/men/3.jpg",
+            image: "https://randomuser.me/api/portraits/men/46.jpg",
             rating: 5,
-            text: "Excellent service and friendly staff!",
+            text: "I was worried about moving here, but the friendly community made me feel at home instantly.",
         },
         {
             id: 4,
             name: "Emily Brown",
-            image: "https://randomuser.me/api/portraits/women/4.jpg",
-            rating: 4,
-            text: "Good quality, but room for improvement.",
+            image: "https://randomuser.me/api/portraits/women/65.jpg",
+            rating: 5,
+            text: "The medical facilities are top-notch. I feel safe knowing there is care available 24/7.",
         },
         {
             id: 5,
             name: "David Wilson",
-            image: "https://randomuser.me/api/portraits/men/5.jpg",
+            image: "https://randomuser.me/api/portraits/men/85.jpg",
             rating: 5,
-            text: "Absolutely loved the experience!",
+            text: "Absolutely loved the experience! The gym and reading room are my favorite places.",
         },
     ];
 
+    // Star rendering helper
+    const renderStars = (rating) => {
+        return [...Array(5)].map((_, i) => (
+            <FaStar
+                key={i}
+                className={i < rating ? "text-[#5fbf54]" : "text-gray-300"}
+            />
+        ));
+    };
+
     return (
-        <div className="w-[95%] my-10 mx-auto rounded py-16 bg-[#eef8ef] text-center">
-            <h1 className="text-4xl font-semibold mb-8">Customer Reviews</h1>
-            <div className="max-w-6xl mx-auto mt-5">
-                <Slider {...settings}>
-                    {reviews.map((review) => (
-                        <div key={review.id} className="p-4">
-                            <div className="bg-white shadow-lg rounded-lg p-6 text-center">
-                                <img
-                                    src={review.image}
-                                    alt={review.name}
-                                    className="w-16 h-16 rounded-full mx-auto mb-4"
-                                />
-                                <h2 className="text-xl font-semibold">
-                                    {review.name}
-                                </h2>
-                                <div className="flex justify-center mt-2">
-                                    {"★".repeat(review.rating)}
-                                    {"☆".repeat(5 - review.rating)}
+        <section className="py-20 bg-gray-50 overflow-hidden">
+            <div className="container mx-auto px-4">
+                {/* Section Header */}
+                <div className="text-center mb-16">
+                    <h6 className="text-[#5fbf54] font-bold tracking-wider uppercase text-sm mb-2">
+                        Testimonials
+                    </h6>
+                    <h2 className="text-3xl md:text-5xl font-bold text-gray-800">
+                        What Our Members Say
+                    </h2>
+                    <div className="w-20 h-1 bg-[#5fbf54] mx-auto mt-4 rounded-full"></div>
+                </div>
+
+                {/* Slider Wrapper */}
+                <div className="max-w-7xl mx-auto">
+                    <Slider {...settings} className="pb-10">
+                        {reviews.map((review) => (
+                            <div key={review.id} className="px-4 py-4">
+                                {" "}
+                                {/* Padding for gap */}
+                                <div className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl border border-gray-100 transition-all duration-300 transform hover:-translate-y-2 h-full flex flex-col relative">
+                                    {/* Quote Icon */}
+                                    <FaQuoteLeft className="text-4xl text-[#5fbf54] opacity-20 absolute top-6 left-6" />
+
+                                    {/* Content */}
+                                    <div className="flex flex-col items-center text-center mt-4">
+                                        <div className="relative">
+                                            <img
+                                                src={review.image}
+                                                alt={review.name}
+                                                className="w-20 h-20 rounded-full object-cover border-4 border-green-50 shadow-md mb-4"
+                                            />
+                                        </div>
+
+                                        <h3 className="text-xl font-bold text-gray-800">
+                                            {review.name}
+                                        </h3>
+
+                                        {/* Stars */}
+                                        <div className="flex gap-1 my-3 text-lg">
+                                            {renderStars(review.rating)}
+                                        </div>
+
+                                        <p className="text-gray-500 leading-relaxed italic">
+                                            "{review.text}"
+                                        </p>
+                                    </div>
                                 </div>
-                                <p className="mt-2 text-gray-600">
-                                    {review.text}
-                                </p>
                             </div>
-                        </div>
-                    ))}
-                </Slider>
+                        ))}
+                    </Slider>
+                </div>
             </div>
-        </div>
+        </section>
     );
 };
 

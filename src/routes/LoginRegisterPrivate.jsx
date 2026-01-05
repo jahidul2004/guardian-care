@@ -7,7 +7,7 @@ const LoginRegisterPrivate = ({ children }) => {
     const { user, loading } = useContext(AuthContext);
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <span className="loading loading-bars loading-lg"></span>;
     }
 
     if (!user) {
