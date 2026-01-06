@@ -1,48 +1,68 @@
 import axios from "axios";
-import { AiOutlineLike } from "react-icons/ai";
+import { AiOutlineLike, AiFillLike } from "react-icons/ai";
 import { Link, useLoaderData } from "react-router-dom";
 import StarRatings from "react-star-ratings";
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "../../context/AuthContext/AuthContext";
 import Swal from "sweetalert2";
 import ReviewCard from "../../components/ReviewCard";
+import { FaUserTie, FaClock, FaTags, FaPenNib } from "react-icons/fa";
+import { MdFoodBank } from "react-icons/md";
 
 const MealDetails = () => {
     const data = useLoaderData();
-    const [likeCount, setLikeCount] = useState(data.likeCount || 0);
-    const [isLiked, setIsLiked] = useState(false);
-    const [givenRating, setGivenRating] = useState(1);
-    const [reviews, setReviews] = useState([]);
-
-    const [dbUser, setDbUser] = useState(null);
-
     const { user } = useContext(AuthContext);
 
+    // State
+    const [likeCount, setLikeCount] = useState(data.likeCount || 0);
+    const [isLiked, setIsLiked] = useState(false);
+    const [givenRating, setGivenRating] = useState(0); // Default 0 forces user to pick
+    const [reviews, setReviews] = useState([]);
+    const [dbUser, setDbUser] = useState(null);
+    const [loadingReviews, setLoadingReviews] = useState(true);
+
+    // Fetch User Info
     useEffect(() => {
-        fetch(`https://gurdian-care-server.vercel.app/user/${user?.email}`)
-            .then((res) => res.json())
-            .then((data) => {
-                setDbUser(data);
-            });
+        if (user?.email) {
+            fetch(`https://gurdian-care-server.vercel.app/user/${user?.email}`)
+                .then((res) => res.json())
+                .then((data) => setDbUser(data));
+        }
     }, [user?.email]);
 
+    // Fetch Reviews
     useEffect(() => {
-        fetch(`https://gurdian-care-server.vercel.app/reviews/meal/${data?._id}`)
+        fetch(
+            `https://gurdian-care-server.vercel.app/reviews/meal/${data?._id}`
+        )
             .then((res) => res.json())
             .then((data) => {
                 setReviews(data);
-            });
-    }, []);
+                setLoadingReviews(false);
+            })
+            .catch(() => setLoadingReviews(false));
+    }, [data?._id]);
 
+    // Handle Request Meal
     const handleRequestMeal = (_id) => {
-        if (dbUser?.badge === "bronze") {
+        if (!user) {
             Swal.fire({
                 icon: "error",
-                title: "Oops...",
-                text: "You need to be a silver or gold or platinum member to request a meal!",
+                title: "Login Required",
+                text: "Please login to request a meal.",
             });
             return;
         }
+        if (dbUser?.badge === "bronze") {
+            Swal.fire({
+                icon: "warning",
+                title: "Upgrade Required",
+                text: "Bronze members cannot request meals. Please upgrade to Silver, Gold, or Platinum.",
+                confirmButtonColor: "#5fbf54",
+            });
+            return;
+        }
+
         const request = {
             mealId: _id,
             userEmail: user?.email,
@@ -51,213 +71,318 @@ const MealDetails = () => {
             status: "pending",
             image: data?.image,
             title: data?.title,
-            likeCount: data?.likeCount,
-            reviewCount: data?.reviewCount,
+            likeCount: likeCount, // Use current state
+            reviewCount: reviews.length, // Use current state
         };
 
         axios
-            .post("https://gurdian-care-server.vercel.app/mealRequests", request)
-            .then((res) => {
+            .post(
+                "https://gurdian-care-server.vercel.app/mealRequests",
+                request
+            )
+            .then(() => {
                 Swal.fire({
                     icon: "success",
-                    title: "Success",
-                    text: "Your request has been sent successfully!",
+                    title: "Request Sent",
+                    text: "We have received your meal request!",
+                    confirmButtonColor: "#5fbf54",
                 });
             })
             .catch((err) => {
                 Swal.fire({
                     icon: "error",
-                    title: "Oops...",
-                    text: err.response.data.message,
+                    title: "Error",
+                    text: err.response?.data?.message || "Something went wrong",
                 });
             });
     };
 
+    // Handle Like
     const handleLike = (_id) => {
-        setIsLiked(true);
-
-        setLikeCount((prevCount) => prevCount + 1);
-
         if (!user) {
-            setIsLiked(false);
-            setLikeCount((prevCount) => prevCount - 1);
-
             Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "You need to login first!",
+                icon: "warning",
+                title: "Login Required",
+                text: "Please login to like this meal.",
             });
             return;
         }
+
+        if (isLiked) return; // Prevent multiple likes locally
+
+        setIsLiked(true);
+        setLikeCount((prev) => prev + 1);
 
         axios
             .put(`https://gurdian-care-server.vercel.app/meals/${_id}`, {
                 likeCount: likeCount + 1,
             })
-            .then((res) => {
-                // console.log("Server updated:", res.data);
-            })
-            .catch((err) => {
-                console.error(err);
+            .catch(() => {
                 setIsLiked(false);
-                setLikeCount((prevCount) => prevCount - 1);
+                setLikeCount((prev) => prev - 1); // Revert on error
             });
     };
 
-    const handleRating = (newRating) => {
+    // Handle Review Submit
+    const handleReview = (e) => {
+        e.preventDefault();
         if (!user) {
             Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "You need to login first!",
+                icon: "warning",
+                title: "Login Required",
+                text: "Please login to write a review.",
+            });
+            return;
+        }
+        if (givenRating === 0) {
+            Swal.fire({
+                icon: "warning",
+                title: "Rate Us",
+                text: "Please select a star rating.",
             });
             return;
         }
 
-        setGivenRating(newRating);
-    };
-
-    const handleReview = (e) => {
-        e.preventDefault();
-        const rating = givenRating;
         const text = e.target.reviewText.value;
-
         const newReview = {
             mealId: data?._id,
             userName: user?.displayName,
             userEmail: user?.email,
-            rating,
+            rating: givenRating,
             text,
             postTime: new Date().toLocaleString(),
             profileImage: user?.photoURL,
             mealTitle: data?.title,
-            likeCount: data?.likeCount,
+            likeCount: likeCount,
         };
 
         axios
             .post("https://gurdian-care-server.vercel.app/reviews", newReview)
             .then((res) => {
-                Swal.fire({
-                    icon: "success",
-                    title: "Success",
-                    text: "Your review has been posted successfully!",
-                });
+                if (res.data.insertedId) {
+                    setReviews([
+                        ...reviews,
+                        { ...newReview, _id: res.data.insertedId },
+                    ]); // Optimistic update
+                    Swal.fire({
+                        icon: "success",
+                        title: "Review Posted",
+                        text: "Thank you for your feedback!",
+                        confirmButtonColor: "#5fbf54",
+                    });
+                    e.target.reset();
+                    setGivenRating(0);
+                }
             })
             .catch((err) => {
                 Swal.fire({
                     icon: "error",
-                    title: "Oops...",
-                    text: err.response.data.message,
+                    title: "Error",
+                    text:
+                        err.response?.data?.message || "Failed to post review",
                 });
             });
     };
 
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 p-5 md:p-10">
-            <div className="h-[450px] w-full">
-                <img
-                    className="h-full w-full rounded-lg object-cover"
-                    src={data?.image}
-                    alt=""
-                />
-            </div>
-            <div className="w-full bg-[#f9f9f9] p-5 rounded-lg relative">
-                <h1 className="text-3xl font-bold mb-2">{data?.title}</h1>
-                <StarRatings
-                    rating={data?.rating}
-                    numberOfStars={5}
-                    name="rating"
-                    starRatedColor="#5fbf54"
-                    starDimension="20px"
-                />
-                <p className="my-2">{data?.description}</p>
-                <p className="font-semibold">Price: {data?.price}$</p>
-                <p className="font-semibold">
-                    Distributor: {data?.distributorName}
-                </p>
-                <h1 className="font-semibold">Ingredients</h1>
-                <ul className="list-disc pl-5 mt-2">
-                    {data?.ingredients.map((ingredient, index) => (
-                        <li key={index}>{ingredient}</li>
-                    ))}
-                </ul>
-
-                <div className="flex items-center gap-4 mt-4">
-                    <button
-                        onClick={() => {
-                            handleLike(data?._id);
-                        }}
-                        disabled={isLiked}
-                        className={`btn border-2 ${
-                            isLiked
-                                ? "border-gray-400 text-gray-400"
-                                : "border-[#5fbf54]"
-                        }`}
-                    >
-                        <AiOutlineLike
-                            className={`font-bold text-2xl ${
-                                isLiked ? "text-gray-400" : "text-[#5fbf54]"
-                            }`}
-                        />
-                        <span>{likeCount}</span>
-                    </button>
-
-                    <button
-                        onClick={() => {
-                            handleRequestMeal(data?._id);
-                        }}
-                        className="btn bg-[#5fbf54] text-white border-none mt-2"
-                    >
-                        Request For This Meal
-                    </button>
+        <div className="container mx-auto px-4 py-10 max-w-7xl">
+            {/* Top Section: Details */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-16">
+                {/* Left: Image */}
+                <div className="h-[400px] md:h-[500px] w-full rounded-3xl overflow-hidden shadow-xl border border-gray-100 group">
+                    <img
+                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        src={data?.image}
+                        alt={data?.title}
+                    />
                 </div>
 
-                <div className="mt-5">
-                    <h2 className="font-bold text-lg">Review this meal</h2>
-                    <form
-                        onSubmit={handleReview}
-                        className="flex flex-col lg:flex-row items-center gap-2"
-                    >
-                        <div>
-                            <StarRatings
-                                rating={givenRating}
-                                changeRating={handleRating}
-                                numberOfStars={5}
-                                name="userRating"
-                                starRatedColor="#5fbf54"
-                                starHoverColor="#4caf50"
-                                starDimension="25px"
-                                starSpacing="5px"
-                            />
+                {/* Right: Info */}
+                <div className="flex flex-col justify-center space-y-6">
+                    <div>
+                        <div className="flex items-center gap-2 mb-2">
+                            <span className="bg-green-100 text-[#5fbf54] text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                                {data?.category || "Special Meal"}
+                            </span>
+                            <span className="flex items-center gap-1 text-gray-500 text-sm">
+                                <FaClock className="text-[#5fbf54]" />{" "}
+                                {new Date(data?.postTime).toLocaleDateString()}
+                            </span>
                         </div>
-                        <textarea
-                            required
-                            cols={30}
-                            rows={1}
-                            name="reviewText"
-                            className="textarea bg-transparent textarea-bordered"
-                            placeholder="Write something about this meal"
-                        ></textarea>
-                        <button className="btn bg-[#5fbf54] text-white border-none">
-                            Submit
-                        </button>
-                    </form>
-                </div>
+                        <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+                            {data?.title}
+                        </h1>
+                        <div className="flex items-center gap-4">
+                            <StarRatings
+                                rating={data?.rating}
+                                numberOfStars={5}
+                                name="rating"
+                                starRatedColor="#facc15"
+                                starDimension="22px"
+                                starSpacing="2px"
+                            />
+                            <span className="text-gray-400 text-sm">
+                                ({reviews.length} Reviews)
+                            </span>
+                        </div>
+                    </div>
 
-                <p className="absolute bottom-2 right-2 font-bold text-xs">
-                    {data.postTime}
-                </p>
+                    <p className="text-gray-600 text-lg leading-relaxed">
+                        {data?.description}
+                    </p>
+
+                    {/* Distributor Info */}
+                    <div className="flex items-center gap-3 bg-gray-50 p-4 rounded-xl border border-gray-100 w-max">
+                        <div className="bg-white p-2 rounded-full shadow-sm text-[#5fbf54]">
+                            <FaUserTie />
+                        </div>
+                        <div>
+                            <p className="text-xs text-gray-400 font-bold uppercase">
+                                Distributor
+                            </p>
+                            <p className="font-semibold text-gray-800">
+                                {data?.distributorName}
+                            </p>
+                        </div>
+                    </div>
+
+                    {/* Ingredients Tags */}
+                    <div>
+                        <h3 className="font-bold text-gray-800 mb-3 flex items-center gap-2">
+                            <FaTags className="text-[#5fbf54]" /> Ingredients
+                        </h3>
+                        <div className="flex flex-wrap gap-2">
+                            {data?.ingredients?.map((ingredient, index) => (
+                                <span
+                                    key={index}
+                                    className="px-4 py-2 bg-white border border-gray-200 rounded-full text-sm text-gray-600 font-medium shadow-sm hover:border-[#5fbf54] hover:text-[#5fbf54] transition-colors cursor-default"
+                                >
+                                    {ingredient}
+                                </span>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Price & Actions */}
+                    <div className="pt-6 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-6">
+                        <div>
+                            <p className="text-gray-400 text-sm font-medium">
+                                Price per meal
+                            </p>
+                            <h2 className="text-4xl font-bold text-[#5fbf54]">
+                                ${data?.price}
+                            </h2>
+                        </div>
+
+                        <div className="flex gap-4 w-full sm:w-auto">
+                            {/* Like Button */}
+                            <button
+                                onClick={() => handleLike(data?._id)}
+                                disabled={isLiked}
+                                className={`btn btn-circle btn-lg border-2 bg-white hover:bg-gray-50 ${
+                                    isLiked
+                                        ? "border-gray-300 text-gray-400"
+                                        : "border-[#5fbf54] text-[#5fbf54]"
+                                }`}
+                            >
+                                {isLiked ? (
+                                    <AiFillLike size={28} />
+                                ) : (
+                                    <AiOutlineLike size={28} />
+                                )}
+                            </button>
+
+                            {/* Request Button */}
+                            <button
+                                onClick={() => handleRequestMeal(data?._id)}
+                                className="btn btn-lg bg-[#5fbf54] hover:bg-[#4da043] text-white border-none rounded-full px-8 flex-grow sm:flex-grow-0 shadow-lg shadow-green-200"
+                            >
+                                <MdFoodBank size={24} /> Request Meal
+                            </button>
+                        </div>
+                        {isLiked && (
+                            <p className="text-xs text-center sm:text-left text-gray-400 -mt-4 sm:mt-0 sm:hidden">
+                                You liked this!
+                            </p>
+                        )}
+                    </div>
+                </div>
             </div>
 
-            <div className="border p-5 rounded-lg md:col-span-2">
-                <h1 className="text-center font-bold text-3xl py-4 mb-10">
-                    Reviews({reviews.length})
-                </h1>
+            {/* Bottom Section: Reviews */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                {/* Review Form */}
+                <div className="lg:col-span-1">
+                    <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 sticky top-24">
+                        <h3 className="text-2xl font-bold text-gray-800 mb-2 flex items-center gap-2">
+                            <FaPenNib className="text-[#5fbf54]" /> Write a
+                            Review
+                        </h3>
+                        <p className="text-gray-500 text-sm mb-6">
+                            Share your experience with this meal.
+                        </p>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {reviews.map((review) => (
-                        <ReviewCard key={review._id} data={review} />
-                    ))}
+                        <form
+                            onSubmit={handleReview}
+                            className="flex flex-col gap-4"
+                        >
+                            <div className="flex flex-col items-center p-4 bg-gray-50 rounded-xl">
+                                <span className="text-sm font-bold text-gray-400 mb-2">
+                                    Tap to Rate
+                                </span>
+                                <StarRatings
+                                    rating={givenRating}
+                                    changeRating={setGivenRating}
+                                    numberOfStars={5}
+                                    name="userRating"
+                                    starRatedColor="#5fbf54"
+                                    starHoverColor="#4da043"
+                                    starDimension="30px"
+                                    starSpacing="5px"
+                                />
+                            </div>
+
+                            <textarea
+                                required
+                                name="reviewText"
+                                rows={4}
+                                className="textarea textarea-bordered w-full focus:outline-none focus:border-[#5fbf54] rounded-xl text-base"
+                                placeholder="What did you like or dislike?"
+                            ></textarea>
+
+                            <button className="btn bg-[#5fbf54] hover:bg-[#4da043] text-white border-none w-full rounded-xl font-bold">
+                                Post Review
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                {/* Review List */}
+                <div className="lg:col-span-2">
+                    <h3 className="text-2xl font-bold text-gray-800 mb-6">
+                        Customer Reviews{" "}
+                        <span className="text-[#5fbf54]">
+                            ({reviews.length})
+                        </span>
+                    </h3>
+
+                    {loadingReviews ? (
+                        <div className="text-center py-10">
+                            <span className="loading loading-bars loading-md text-[#5fbf54]"></span>
+                        </div>
+                    ) : reviews.length > 0 ? (
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            {reviews.map((review) => (
+                                <ReviewCard key={review._id} data={review} />
+                            ))}
+                        </div>
+                    ) : (
+                        <div className="text-center py-16 bg-gray-50 rounded-2xl border-dashed border-2 border-gray-200">
+                            <p className="text-gray-500 font-medium">
+                                No reviews yet. Be the first to review!
+                            </p>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
